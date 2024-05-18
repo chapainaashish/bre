@@ -1,0 +1,437 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Birauta Real Estate and Housing Pvt Ltd | Property Details</title>
+{% endblock title %}
+
+{% block main %}
+
+<section class="single-listing-carousel-wrap">
+  <div class="slick-carousel slick-navigation-layout2" data-slick='{
+            "slidesToShow": 3,
+            "slidesToShowTab": 3,
+            "slidesToShowMobile": 2,
+            "slidesToScroll": 1,
+            "speed": 600,
+            "autoplaySpeed": 2000,
+            "dots": false,
+            "arrows": true,
+            "infinite": true,
+            "lazyLoad": "progressive",
+            "pauseOnHover": true,
+            "autoplay": false,
+            "centerMode": true,
+            "adaptiveHeight": false,
+            "rtl": false,
+            "prevArrow": "&lt;span class=\"slick-prev slick-navigation\"&gt;&lt;i class=\"flaticon-back\"&gt;&lt;/i&gt;&lt;/span&gt;",
+            "nextArrow": "&lt;span class=\"slick-next slick-navigation\"&gt;&lt;i class=\"flaticon-right-arrow\"&gt;&lt;/i&gt;&lt;/span&gt;"
+        }'>
+    <div class="nav-item">
+      <img alt="Listing" class="img-fluid" src="{{ listing.image1.url }}" />
+    </div>
+
+    {% if listing.image2 %}
+    <div class="nav-item">
+      <img alt="Listing" class="img-fluid" src="{{ listing.image2.url }}" />
+    </div>
+    {% else %}
+    <div class="nav-item">
+      <img alt="Listing" class="img-fluid" src="{{ listing.image1.url }}" />
+    </div>
+    {% endif %}
+
+    {% if listing.image3 %}
+    <div class="nav-item">
+      <img alt="Listing" class="img-fluid" src="{{ listing.image3.url }}" />
+    </div>
+    {% else %}
+    <div class="nav-item">
+      <img alt="Listing" class="img-fluid" src="{{ listing.image1.url }}" />
+    </div>
+    {% endif %}
+
+    {% if listing.image4 %}
+    <div class="nav-item">
+      <img alt="Listing" class="img-fluid" src="{{ listing.image4.url }}" />
+    </div>
+    {% else %}
+    <div class="nav-item">
+      <img alt="Listing" class="img-fluid" src="{{ listing.image1.url }}" />
+    </div>
+    {% endif %}
+
+   {% if listing.image5 %}
+    <div class="nav-item">
+      <img alt="Listing" class="img-fluid" src="{{ listing.image5.url }}" />
+    </div>
+    {% endif %}
+
+    {% if listing.image6 %}
+    <div class="nav-item">
+      <img alt="Listing" class="img-fluid" src="{{ listing.image6.url }}" />
+    </div>
+    {% endif %}
+  </div>
+</section>
+<!-- Single Listing Area Start Here -->
+<section class="single-listing-wrap-layout2 padding-bottom-7 bg--accent">
+  <div class="single-listing-summary-wrap2">
+    <div class="container">
+      <div class="row"> 
+        <div class="col-xl-8 col-lg-6">
+          <div class="single-listing-summary2">
+            <div class="row no-gutters">
+              <div class="col-12"> 
+                <div class="media">
+                  <figure><img alt="Listing" src="{{ listing.subcategory.first.category.logo.url }}" /></figure>
+                  <div class="media-body space-md">
+                    <h2 class="item-title">{{listing.business_name}}</h2>
+                    <p>{{listing.location}},  {{listing.street}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-6 col-md-4 col-sm-6 col-12">
+                <div class="entry-meta-date"><i class="far fa-calendar-alt"></i>{{listing.created_at|date:"F j, Y"}}</div>              </div>
+              <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-12">
+                <div class="entry-meta-location"><i class="fas fa-map-marker-alt"></i>{{listing.subcategory.first.category.name}}</div>
+              </div>
+              <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
+                <ul class="entry-meta-rating">
+                  {% for i in "12345"|make_list %}
+                      {% if i|add:0 <= listing.average_rating|default_if_none:0 %}
+                          <li><i class="fas fa-star"></i></li>  {# Full star #}
+                      {% elif i|add:"-1" < listing.average_rating|default_if_none:0 %}
+                          <li><i class="fas fa-star-half-alt"></i></li>  {# Half star #}
+                      {% else %}
+                          <li><i class="far fa-star"></i></li>  {# Empty star #}
+                      {% endif %}
+                  {% endfor %}
+                  <li><span>{{ listing.average_rating|default_if_none:0 }}<span> / 5</span></span> </li>
+              </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="single-listing-box-layout2">
+          <div class="listygo-text-box listing-details-info">
+            <h2 class="tab-content-title">{{listing.business_name}}</h2>
+            {{listing.description|safe}}
+            <div class="row">
+              <div class="col-sm-6 col-12">
+                <div class="gallery-box-layout2">
+                  <img alt="listing" class="img-fluid" src="{{ listing.image1.url }}" />
+                </div>
+              </div>
+              {% if listing.image2 %}
+              <div class="col-sm-6 col-12">
+                <div class="gallery-box-layout2">
+                  <img alt="listing" class="img-fluid" src="{{ listing.image2.url }}" />
+                </div>
+              </div>
+              {% endif %}
+              {% if listing.image3 %}
+              <div class="col-sm-6 col-12">
+                <div class="gallery-box-layout2">
+                  <img alt="listing" class="img-fluid" src="{{ listing.image3.url }}" />
+                </div>
+              </div>
+              {% endif %}
+              {% if listing.image4 %}
+              <div class="col-sm-6 col-12">
+                <div class="gallery-box-layout2">
+                  <img alt="listing" class="img-fluid" src="{{ listing.image4.url }}" />
+                </div>
+              </div>
+              {% endif %}
+              {% if listing.image5 %}
+              <div class="col-sm-6 col-12">
+                <div class="gallery-box-layout2">
+                  <img alt="listing" class="img-fluid" src="{{ listing.image5.url }}" />
+                </div>
+              </div>
+              {% endif %}
+              {% if listing.image6 %}
+              <div class="col-sm-6 col-12">
+                <div class="gallery-box-layout2">
+                  <img alt="listing" class="img-fluid" src="{{ listing.image6.url }}" />
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+           <div class="listygo-text-box listing-details-menu">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a aria-expanded="false" class="active" data-toggle="tab" href="#one">Amenities</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade active show" id="one" role="tabpanel">
+                <ul class="menu-wrap">
+                  {% for amenity in listing.amenities.all %}
+                  <li>
+                    <div class="media">
+                      <a href="#"><img alt="Menu"  src="{{ amenity.image.url }}"/></a>
+                      <div class="media-body space-md">
+                        <h4 class="item-title"><a>{{amenity.title}}</a></h4>
+                        <p>{{amenity.description}}</p>
+                      </div>
+                    </div>
+                  </li>
+                  {% empty %}
+                  <p>No amenities listed.</p>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div> 
+          <div class="listygo-text-box listing-details-review">
+            <h3 class="inner-item-heading">Reviews</h3>
+            <div class="total-review"><span>({{ reviews.count }})</span> Ratings</div>
+            <ul class="review-items">
+              {% for review in reviews %}
+              <li class="post-no-one">
+                <div class="media">
+                  <figure><img alt="Review" src="{{ review.user.profile.image.url }}" /></figure>
+                  <div class="media-body">
+                    <span class="review-title">{{review.title}}</span>
+                    <h4 class="reviewer-name">{{review.user.username}}<span class="review-date">{{review.created_at}}</span></h4>
+                       {{review.description}}
+                    <ul class="item-rating">
+                      {% for i in "12345"|make_list %}
+                        {% if i|add:0 <= review.rating %}
+                            <li class="star-{{i}}"><i class="fas fa-star"></i></li>  {# Full star #}
+                        {% elif i|add:"-1" < review.rating %}
+                            <li class="star-{{i}}"><i class="fas fa-star-half-alt"></i></li>  {# Half star #}
+                        {% else %}
+                            <li class="star-{{i}}"><i class="far fa-star"></i></li>  {# Empty star #}
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </li>   
+              {% empty %}
+            <li>No reviews yet</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% if review_success %}
+          <div class="alert alert-success text-center" role="alert" style="margin-top:8px;">
+            {{review_success}}
+          </div>
+          {% endif %}
+          {% if review_message %}
+            <div class="alert alert-info text-center" role="alert" style="margin-top:8px;">
+              {{ review_message }}
+            </div>
+         {% else %}
+          <form method="post" id="review-form">
+            {% csrf_token %}
+            <div class="listygo-text-box listing-details-leave-review">
+              <h3 class="inner-item-heading">Leave your review </h3>
+              <div class="rate-wrapper" id="rate-wrapper">
+                <div class="rate-label">Your overall rating of this listing</div>
+                <div class="rate">
+                    {% for i in "12345"|make_list %}
+                    <div class="rate-item">
+                        <label for="{{ review_form.rating.auto_id }}_{{ i }}">
+                            <i aria-hidden="true" class="fa fa-star {% if review_form.rating.value >= i %}selected{% endif %}"></i>
+                        </label>
+                        <input type="radio" id="{{ review_form.rating.auto_id }}_{{ i }}" name="{{ review_form.rating.name }}" value="{{ i }}" {% if review_form.rating.value == i %}checked{% endif %} style="display: none;">
+                    </div>
+                    {% endfor %}
+                </div>
+              </div>
+              <p id="rating-error" style="display: none; color: #FF4A52;">Select at least one star</p>
+              <div class="contact-form-box" id="contact-form2">
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label>Title of your review</label>
+                    {{review_form.title}}
+                    <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label>Write Your review</label>
+                    {{review_form.description}}
+                    <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="col-12 form-group mb-0">
+                    <button class="item-btn" type="submit" name="review_submit">Submit Your Review</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          {% endif %}
+          <div class="related-listing">
+            <h2 class="related-title">May You Also Like</h2>
+            <div class="nav-control-layout3" id="owl-nav1">
+              <span class="rt-prev">
+                <i class="fas fa-chevron-left"></i>
+              </span>
+              <span class="rt-next">
+                <i class="fas fa-chevron-right"></i>
+              </span> 
+            </div>
+          </div>
+          <div class="rc-carousel listing-box-grid" data-autoplay="false" data-autoplay-timeout="5000"
+            data-custom-nav="#owl-nav1" data-dots="false" data-items="4" data-loop="true" data-margin="30"
+            data-nav="false" data-nav-speed="false" data-r-extra-large="2" data-r-extra-large-dots="false"
+            data-r-extra-large-nav="false" data-r-large="2" data-r-large-dots="false" data-r-large-nav="false"
+            data-r-medium="2" data-r-medium-dots="false" data-r-medium-nav="false" data-r-small="1"
+            data-r-small-dots="false" data-r-small-nav="false" data-r-x-medium="1" data-r-x-medium-dots="false"
+            data-r-x-medium-nav="false" data-r-x-small="1" data-r-x-small-dots="false" data-r-x-small-nav="false"
+            data-smart-speed="2000">
+
+            {% for listing in listings %}
+            <div class="product-box">
+              <div class="item-img bg--gradient-50">
+                {% if listing.opening_hours %}
+                <div class="item-status status-open active">{{listing.opening_hours}}</div>
+                {% endif %}
+                <img alt="Listing" class="img-fluid grid-view-img"
+                  src="{{listing.image1.url}}" />
+                <img alt="Listing" class="img-fluid list-view-img"
+                  src="{{listing.image1.url}}" />
+                  <ul class="item-rating">
+                    {% for i in "12345"|make_list %}
+                        {% if i|add:0 <= listing.average_rating|default_if_none:0 %}
+                            <li><i class="fas fa-star"></i></li>  {# Full star #}
+                        {% elif i|add:"-1" < listing.average_rating|default_if_none:0 %}
+                            <li><i class="fas fa-star-half-alt"></i></li>  {# Half star #}
+                        {% else %}
+                            <li><i class="far fa-star"></i></li>  {# Empty star #}
+                        {% endif %}
+                    {% endfor %}
+                    <li><span>{{ listing.average_rating|default_if_none:0 }}<span> / 5</span></span> </li>
+                </ul>
+                <div class="item-logo"><img alt="Logo" src="{{ listing.subcategory.first.category.logo.url }}" /></div>
+              </div>
+              <div class="item-content"> 
+                <h3 class="item-title"><a href="{% url 'listing_details' listing.id %}">{{listing.business_name}}</a></h3>
+                <p class="item-paragraph">{{listing.description|truncatewords:10|safe}}
+                </p>
+                <ul class="contact-info">
+                  <li><i class="fas fa-map-marker-alt"></i>{{listing.street}}, {{listing.city}}</li>
+                  <li><i class="flaticon-phone-call"></i>{{listing.main_phone}}</li>
+                </ul>
+                <ul class="meta-item">
+                  <li class="item-btn"><a class="btn-fill" href="{% url 'listing_details' listing.id %}">Details</a></li>
+                  <li class="ctg-name"><a ><img alt="Logo" style="width: 40px; margin-right: 5px;" src="{{ listing.subcategory.first.category.logo.url }}" />{{ listing.subcategory.first.category.name }}, {{ listing.subcategory.first.name }}</a></li>
+                  <li class="entry-meta">
+                    <ul>
+                      <li class="tooltip-item ctg-icon" data-tips="{{ listing.subcategory.first.category.name }}"><a style="border: none;"><img alt="Logo" src="{{ listing.subcategory.first.category.logo.url }}" /></a></li>
+                      <li class="tooltip-item" data-tips="Gallery"><a href="#"><i class="far fa-image"></i></a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+        <div class="widget widget-information widget-box-padding">
+          <h3 class="widget-title">Information</h3>
+          <ul class="block-list">
+            <li class="block-list-item">
+              <i class="fas fa-map-marker-alt"></i>
+              {% if listing.location %}{{ listing.location }}, {% endif %}
+              {% if listing.street %}{{listing.street}}, {% endif %}
+              {% if listing.city %}{{listing.city}}, {% endif %}
+          </li>
+          </ul>
+        </div>
+        <div class="widget widget-price-range widget-box-padding p-3 bg-light">
+          <h3 class="widget-title text-left mb-5">Pricing</h3>
+          <div class="d-flex justify-content-center align-items-center">
+              <span class="price-range badge  p-3 mr-2" style="background-color: #FF4A52; font-size: 1em; color: white;">{{listing.price}}</span>
+          </div>
+        </div>
+        <div class="widget widget-contact-form widget-box-padding">
+          <h3 class="widget-title">Contact Birauta Real Estate and Housing Pvt Ltd Now</h3>
+          <form class="contact-form-box" onsubmit="return validateForm()" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12 form-group">
+                    <label>Subject</label>
+                    {{ contact_form.subject }}
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="col-12 form-group">
+                    <label>Your Message</label>
+                    {{ contact_form.message }}
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="col-12 form-group">
+                    <div class="g-recaptcha" data-sitekey="6LdiA9EpAAAAAG6NPQU_r04UKJXkgoaL5ehr8B4i"></div>
+                    <div class="help-block with-errors" id="captcha_error"></div>
+                </div>
+                <div class="col-12 form-group mb-0">
+                    <button class="item-btn" type="submit" name="contact_submit">Submit Message</button>
+                </div>
+                {% if contact_form_success %}
+                <div class="alert alert-success text-center" role="alert" style="margin-top:8px;">
+                  Thank you, email is sent to the listing author!
+                </div>
+                {% endif %}
+            </div>
+            <div class="form-response"></div>
+        </form>
+        </div>
+        <div class="widget widget-get-direction widget-box-padding">
+          <div class="google-map-wrap-layout3">
+            <iframe
+            src="https://maps.google.com/maps?q={{ listing.latitude }}%2C%20{{ listing.longitude }}&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"></iframe>
+          </div>
+          <div class="item-text">{{listing.location}}</div>
+        </div>
+       
+        <div class="widget widget-poster widget-box-padding">
+          <div class="item-img">
+            <img alt="Poster" class="img-fluid" src="{{ context_ad_image.image.url }}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Single Listing Area End Here -->
+<script>
+  function validateForm() {
+      var response = grecaptcha.getResponse();
+      if (response.length == 0) {
+        document.getElementById('captcha_error').innerHTML = "Please check the reCAPTCHA checkbox.";
+        return false;
+      }
+      document.getElementById('captcha_error').innerHTML = "";
+      return true;
+  }
+</script>
+
+<script>
+  document.getElementById('review-form').addEventListener('submit', function(event) {
+      var ratingInputs = document.querySelectorAll('input[name="{{ review_form.rating.name }}"]');
+      var isAnyRatingChecked = Array.prototype.slice.call(ratingInputs).some(function(input) {
+          return input.checked;
+      });
+
+      if (!isAnyRatingChecked) {
+          event.preventDefault();
+          document.getElementById('rating-error').style.display = 'block';
+          document.getElementById('rate-wrapper').style.marginBottom = '0';
+      }
+  });
+</script>
+
+{% endblock main %}

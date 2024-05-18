@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Birauta Real Estate and Housing Pvt Ltd | About</title>
+{% endblock title %}
+
+{% block main %}
+  <!-- Inne Page Banner Area Start Here -->
+  <section class="inner-page-banner bg-common inner-page-top-margin overlay-dark-40"
+  data-bg-image="{{ context_about.hero_image.url }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="breadcrumbs-area">
+          <h1>About us</h1>
+          <ul>
+            <li>
+              <a href="{% url 'home' %}" >Home</a>
+            </li>
+            <li>About us</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+  <!-- Inne Page Banner Area End Here -->
+    <!-- About Us Area Start Here -->
+    <section class="about-wrap-layout1 padding-top-10 padding-bottom-7 bg--accent">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-12">
+            <div class="about-box-layout1">
+              <h2 class="item-title title-bar">{{ context_about.about_title }}</h2>
+              {{ context_about.about_text|safe }}
+            </div>
+          </div>
+          <div class="col-lg-6 col-12">
+            <div class="about-box-layout2">
+              <img alt="video" src="{{ context_about.side_image.url }}" />
+              <a class="play-btn popup-youtube" 
+              
+              {% if context_about.about_youtube_url %}
+              href="{{ context_about.about_youtube_url }}"
+              {% else %}
+              href="http://www.youtube.com/watch?v=1iIZeIy7TqM"
+              {% endif %}
+              >
+                <i class="fas fa-play"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- About Us Area End Here -->
+    <!-- Banner Area Start Here -->
+    <section class="action-wrap-layout1 padding-top-9 padding-bottom-10 bg-common overlay-primary-70"
+      data-bg-image="{{ context_about.footer_image.url }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="banner-box-layout1">
+              <h2 class="item-title">Add Your Property </h2>
+              <p>Birauta Real Estate and Housing Pvt Ltd</p>
+              <a class="btn-fill" href="{% url 'add_listing' %}">Post your Property</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Banner Area End Here -->
+    
+    <script>
+      $(document).ready(function() {
+          var teamCount = {{ teams|length }};
+          var itemsCount = teamCount < 3 ? teamCount : 3;
+      
+          $(".listing-box-grid").owlCarousel({
+              loop: teamCount > 3,
+              margin: 30,
+              nav: true,
+              dots: false,
+              smartSpeed: 2000,
+              autoplay: false,
+              autoplayTimeout: 5000,
+              navText: ["<i class='flaticon-back'></i>", "<i class='flaticon-next'></i>"],
+              responsive: {
+                  0: {
+                      items: 1
+                  },
+                  480: {
+                      items: 2
+                  },
+                  992: {
+                      items: itemsCount
+                  }
+              }
+          });
+      });
+      </script>
+{% endblock main %} 
+

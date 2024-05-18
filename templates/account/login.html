@@ -1,0 +1,127 @@
+
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+ 
+
+{% block title %}
+<title>Birauta Real Estate and Housing Pvt Ltd  | My Account</title>
+{% endblock title %}
+
+{% block main %}
+
+<!-- Inne Page Banner Area Start Here -->
+<section class="inner-page-banner bg-common inner-page-top-margin overlay-dark-40"
+  data-bg-image="{{ context_profile_image.image.url }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="breadcrumbs-area">
+          <h1>LOG IN</h1>
+          <ul>
+            <li>
+              <a href="{% url 'home' %}" >Home</a>
+            </li>
+            <li>Log in</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="padding-top-6 padding-bottom-7 bg--accent">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <form class="listing-form" method="post">
+            {% csrf_token %}
+            <div class="inner-box">
+                <h3 class="inner-item-heading2">Log in to Birauta Real Estate and Housing Pvt Ltd</h3>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Username or Email</label>
+                        <div class="form-group">
+                            {{ form.login|add_class:"form-control" }}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label>Password</label>
+                        <div class="form-group">
+                            {{ form.password|add_class:"form-control" }}
+                        </div>
+                        {% if form.non_field_errors %}
+                        <span style="color:#E9363D">{{form.non_field_errors.as_text}}</span>
+                        {% endif %}
+                        
+                        {% comment %} <div style="text-align: center;">
+                          <a href="{% url 'account_reset_password' %}" class="forgot-password">Forgot Password ?</a>
+                      </div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            <div class="inner-box" style="text-align: center;">
+                <button class="btn-upload" type="submit" >{% trans "Log in" %}</button>
+                <div style="padding-top: 10px;">
+                    Don't have an account ? 
+                    <a href="{% url 'account_signup' %}" class="sign-up">Sign up</a>
+                </div>
+               
+            </div>
+        </form>
+      </div>
+      <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+        <div class="widget widget-box-padding widget-follow-us">
+          <h3 class="widget-title">Follow Us</h3>
+          <ul class="inline-list">
+            {% if context_about.facebook %}
+            <li class="single-item"><a href="{{ context_about.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            {% endif %}
+            {% if context_about.twitter %}
+                <li class="single-item"><a href="{{ context_about.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+            {% endif %}
+            {% if context_about.linkedin %}
+                <li class="single-item"><a href="{{ context_about.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+            {% endif %}
+            {% if context_about.pinterest %}
+                <li class="single-item"><a href="{{ context_about.pinterest }}" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+            {% endif %}
+            {% if context_about.skype %}
+                <li class="single-item"><a href="{{ context_about.skype }}" target="_blank"><i class="fab fa-skype"></i></a></li>
+            {% endif %}
+            {% if context_about.rss %}
+                <li class="single-item"><a href="{{ context_about.rss }}" target="_blank"><i class="fas fa-rss"></i></a></li>
+            {% endif %}
+            {% if context_about.dribble %}
+                <li class="single-item"><a href="{{ context_about.dribble }}" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+            {% endif %}
+            {% if context_about.instagram %}
+                <li class="single-item"><a href="{{ context_about.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            {% endif %}
+            {% if context_about.google_plus %}
+                <li class="single-item"><a href="{{ context_about.google_plus }}" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
+            {% endif %}
+            {% if context_about.vk %}
+                <li class="single-item"><a href="{{ context_about.vk }}" target="_blank"><i class="fab fa-vk"></i></a></li>
+            {% endif %}
+          </ul>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+    .forgot-password:hover, .sign-up:hover {
+        color: #E9363D;
+      }
+    .forgot-password, .sign-up {
+        color: #111111;
+        text-align: center;
+      }
+
+</style>
+
+{% endblock main %}
+

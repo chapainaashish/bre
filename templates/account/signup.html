@@ -1,0 +1,145 @@
+
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+ 
+
+{% block title %}
+<title>Birauta Real Estate and Housing Pvt Ltd | Sign up </title>
+{% endblock title %}
+
+{% block main %}
+
+<!-- Inne Page Banner Area Start Here -->
+<section class="inner-page-banner bg-common inner-page-top-margin overlay-dark-40"
+  data-bg-image="{{ context_profile_image.image.url }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="breadcrumbs-area">
+          <h1>SIGN UP</h1>
+          <ul>
+            <li>
+              <a href="{% url 'home' %}" >Home</a>
+            </li>
+            <li>Sign up</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="padding-top-6 padding-bottom-7 bg--accent">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <form class="listing-form" method="post">
+            {% csrf_token %}
+            <div class="inner-box">
+                <h3 class="inner-item-heading2">Sign Up to Birauta Real Estate and Housing Pvt Ltd</h3>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Username</label>
+                        <div class="form-group">
+                            {{ form.username|add_class:"form-control" }}
+                            {% if form.username.errors %}
+                                <div class="error" style="color: red;">{{ form.username.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <label>Email</label>
+                        <div class="form-group">
+                            {{ form.email|add_class:"form-control" }}
+                            {% if form.email.errors %}
+                                <div class="error" style="color: red;">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                    <div class="col-12">
+                        <label>Password</label>
+                        <div class="form-group">
+                            {{ form.password1|add_class:"form-control" }}
+                            {% if form.password1.errors %}
+                                <div class="error" style="color: red;">{{ form.password1.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <label>Confirm Password</label>
+                        <div class="form-group">
+                            {{ form.password2|add_class:"form-control" }}
+                            {% if form.password2.errors %}
+                                <div class="error" style="color: red;">{{ form.password2.errors }}</div>
+                            {% endif %}
+                            {% if form.non_field_errors %}
+                            <span style="color:#E9363D">{{form.non_field_errors.as_text}}</span>
+                            {% endif %}
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-box" style="text-align: center;">
+                <button class="btn-upload" type="submit">{% trans "Sign Up" %}</button>
+                <div style="padding-top: 10px;">
+                    Already have an account ?
+                    <a href="{% url 'account_login' %}" class="login">Log in</a>
+                </div>
+            </div>
+
+        </form>
+      </div>
+      <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+        <div class="widget widget-box-padding widget-follow-us">
+          <h3 class="widget-title">Follow Us</h3>
+          <ul class="inline-list">
+            {% if context_about.facebook %}
+            <li class="single-item"><a href="{{ context_about.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            {% endif %}
+            {% if context_about.twitter %}
+                <li class="single-item"><a href="{{ context_about.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+            {% endif %}
+            {% if context_about.linkedin %}
+                <li class="single-item"><a href="{{ context_about.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+            {% endif %}
+            {% if context_about.pinterest %}
+                <li class="single-item"><a href="{{ context_about.pinterest }}" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+            {% endif %}
+            {% if context_about.skype %}
+                <li class="single-item"><a href="{{ context_about.skype }}" target="_blank"><i class="fab fa-skype"></i></a></li>
+            {% endif %}
+            {% if context_about.rss %}
+                <li class="single-item"><a href="{{ context_about.rss }}" target="_blank"><i class="fas fa-rss"></i></a></li>
+            {% endif %}
+            {% if context_about.dribble %}
+                <li class="single-item"><a href="{{ context_about.dribble }}" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+            {% endif %}
+            {% if context_about.instagram %}
+                <li class="single-item"><a href="{{ context_about.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            {% endif %}
+            {% if context_about.google_plus %}
+                <li class="single-item"><a href="{{ context_about.google_plus }}" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
+            {% endif %}
+            {% if context_about.vk %}
+                <li class="single-item"><a href="{{ context_about.vk }}" target="_blank"><i class="fab fa-vk"></i></a></li>
+            {% endif %}
+          </ul>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+    .forgot-password:hover, .login:hover {
+        color: #E9363D;
+      }
+    .forgot-password, .login {
+        color: #111111;
+        text-align: center;
+      }
+
+</style>
+
+{% endblock main %}
+

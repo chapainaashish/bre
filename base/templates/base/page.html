@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Birauta Real Estate and Housing Pvt Ltd | Page</title>
+{% endblock title %}
+
+{% block main %}
+  <!-- Inne Page Banner Area Start Here -->
+  <section class="inner-page-banner bg-common inner-page-top-margin overlay-dark-40"
+  data-bg-image="{{ context_about.hero_image.url }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="breadcrumbs-area">
+          <h1>{{page.title}}</h1>
+          <ul>
+            <li>
+              <a href="{% url 'home' %}" >Home</a>
+            </li>
+            <li>{{page.title}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+  <!-- Inne Page Banner Area End Here -->
+    <!-- About Us Area Start Here -->
+    <section class="about-wrap-layout1 padding-top-10 padding-bottom-7 bg--accent">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-12">
+            <div class="about-box-layout1">
+              <h2 class="item-title title-bar">{{ page.title }}</h2>
+              {{ page.body|safe }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+{% endblock main %} 
+

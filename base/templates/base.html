@@ -1,0 +1,318 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="ie=edge" http-equiv="x-ua-compatible" />
+    {% block title %}
+    <title>Birauta Real Estate and Housing Pvt Ltd | Home</title>
+    {% endblock title %}
+    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <!-- Favicon -->
+    <link href="{% static 'base/img/favicon.png' %}" rel="shortcut icon" />
+    <!-- Normalize Css -->
+    <link href="{% static 'base/css/normalize.css' %}" rel="stylesheet" />
+    <!-- Main Css -->
+    <link href="{% static 'base/css/main.css' %}" rel="stylesheet" />
+    <!-- Bootstrap Css -->
+    <link href="{% static 'base/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <!-- Animate CSS -->
+    <link href="{% static 'base/css/animate.min.css' %}" rel="stylesheet" />
+    <!-- Fontawesome CSS -->
+    <link href="{% static 'base/css/fontawesome-all.min.css' %}" rel="stylesheet" />
+    <!-- Flaticon CSS -->
+    <link href="{% static 'base/fonts/flaticon.css' %}" rel="stylesheet" />
+    <!-- Slick Caousel CSS -->
+    <link href="{% static 'base/css/slick.css' %}" rel="stylesheet" />
+    <link href="{% static 'base/css/slick-theme.css' %}" rel="stylesheet" />
+    <!-- Nouislider Style CSS -->
+  <link href="{% static 'base/css/nouislider.min.css' %}" rel="stylesheet" />
+    <!-- Magnific Popup CSS -->
+    <link href="{% static 'base/css/magnific-popup.css' %}" rel="stylesheet" />
+    <!-- Owl Carousel CSS -->
+    <link href="{% static 'base/css/owl.carousel.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'base/css/owl.theme.default.min.css' %}" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="{% static 'base/style.css' %}" rel="stylesheet" />
+    <!-- Select 2 CSS -->
+    <link href="{% static 'base/css/select2.min.css' %}" rel="stylesheet" />
+    <!-- Datetime Picker Style CSS -->
+    <link href="{% static 'base/css/jquery.datetimepicker.css' %}" rel="stylesheet" />
+    <!-- Modernizr Js -->
+    <script src="{% static 'base/js/modernizr-3.6.0.min.js' %}"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+  
+    <div id="preloader"></div>
+  
+    <a class="scrollup" data-type="section-switch" href="#wrapper">
+        <i class="fas fa-angle-double-up"></i>
+    </a>
+    <div class="wrapper" id="wrapper">
+        <!-- Header Area Start Here -->
+        <header id="site-header" class="header-one">
+            <div class="header-main header-sticky bg--dark">
+                <div class="container-fluid">
+                    <div class="mob-menu-open toggle-menu">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-12">
+                            <div class="site-logo">
+                                <a href="{% url 'home' %}" class="main-logo"><img src= "{% static 'base/img/logo.png' %}" alt="Site Logo"></a>
+                                <a href="{% url 'home' %}" class="sticky-logo"><img src="{% static 'base/img/sticky-logo.png' %}"  alt="Site Logo"></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-12 possition-static">
+                            <nav class="site-nav">
+                                <ul class="site-menu">
+                                    <li><a  href="{% url 'home' %}" >Home</a>
+                                      
+                                    </li>
+                                    <li><a  href="{% url 'about' %}" >About</a></li>
+                                    <li>
+                                        <a  href="{% url 'listing' %}" >Properties</a>
+                                    </li>
+    
+                                    <li><a  href="{% url 'blog_list' %}" >Blog</a>
+                            
+                                    </li>
+    
+                                    <li><a  href="{% url 'faq' %}" >FAQ</a>
+                            
+                                    </li>
+                                    <li><a  href="{% url 'contact' %}" >Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col-lg-3 d-none d-lg-flex align-items-center justify-content-end">
+                            <div class="nav-action-elements">
+                                <ul>
+                                    <li>
+                                    {% if user.is_authenticated %}
+                                        <a href="{% url 'profile' %}">
+                                            <button type="button" class="login-btn">
+                                                <i class="flaticon-profile"></i>{{ user.username }}
+                                            </button>
+                                        </a>
+                                    {% else %}
+                                    <a href="{% url 'account_login' %}">
+                                        <button type="button" class="login-btn" data-toggle="modal" data-target="#myModal">
+                                            <i class="flaticon-profile"></i>Login
+                                        </button>
+                                    </a>
+                                    {% endif %}
+                                    </li>
+                                     <li>
+                                        <a  href="{% url 'add_listing' %}" class="ghost-btn"><i class="fas fa-plus"></i>ADD PROPERTY</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        {% block main %}
+
+        {% endblock main %}
+
+        <footer>
+            <section class="footer-top-wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="single-item col-lg-3 col-md-6 col-12">
+                            <div class="footer-box">
+                                <div class="footer-logo">
+                                    <a href="index.html"><img alt="footer-logo" class="img-fluid"
+                                            src="{% static 'base/img/footer-logo.png' %}" /></a>
+                                </div>
+                                <div class="footer-about">
+                                </div>
+                                <div class="footer-contact-info">
+                                    <ul>
+                                        <li><i class="fas fa-map-marker-alt"></i>{{ context_about.location }}</li>
+                                        <li><i class="fas fa-phone"></i>{{ context_about.phone }}</li>
+                                        <li><i class="far fa-envelope"></i>{{ context_about.email }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-item col-lg-3 col-md-6 col-12">
+                            <div class="footer-box">
+                                <div class="footer-header">
+                                    <h3>Top Highlights</h3>
+                                </div>
+                                <div class="widget_nav_menu">
+                                    <ul>
+                                        {% for category in context_category %}
+                                            <li>
+                                                <a href="{% url 'listing' %}?business_category={{ category.id }}">{{ category.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-item col-lg-2 col-md-6 col-12">
+                            <div class="footer-box">
+                                <div class="footer-header">
+                                    <h3>Links</h3>
+                                </div>
+                                <div class="widget_nav_menu">
+                                    <ul>
+                                        <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                        <li><a href="{% url 'contact' %}">Contact us</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-item col-lg-2 col-md-6 col-12">
+                            <div class="footer-box">
+                                <div class="footer-header">
+                                    <h3>More links</h3>
+                                </div>
+                                <div class="widget_nav_menu">
+                                     <ul>
+                                        {% for page in  context_pages %}  
+                                        <li><a href="{% url 'page' page.slug %}">{{page.title}}</a></li>
+                                        {% endfor %}
+                                    </ul> 
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="single-item col-lg-2 col-md-6 col-12">
+                            <div class="footer-box">
+                                <div class="footer-header">
+                                    <h3>Follow Us</h3>
+                                </div>
+                                <div class="footer-social">
+                                    <ul>
+                                    {% if context_about.facebook %}
+                                        <li><a href="{{ context_about.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                    {% endif %}
+                                    {% if context_about.twitter %}
+                                        <li><a href="{{ context_about.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                    {% endif %}
+                                    {% if context_about.linkedin %}
+                                        <li><a href="{{ context_about.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                                    {% endif %}
+                                    {% if context_about.pinterest %}
+                                        <li><a href="{{ context_about.pinterest }}" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+                                    {% endif %}
+                                    {% if context_about.skype %}
+                                        <li><a href="{{ context_about.skype }}" target="_blank"><i class="fab fa-skype"></i></a></li>
+                                    {% endif %}
+                                    </ul>
+                                </div>
+                                {% comment %} <ul class="folow-us">
+                                    <li>
+                                        <a href="#">
+                                            <img alt="follow" src="{% static 'base/img/figure/follow1.jpg' %}" />
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img alt="follow" src="{% static 'base/img/figure/follow2.jpg' %}" />
+                                        </a>
+                                    </li>
+                                </ul> {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="footer-bottom-wrap" style="position: relative;">
+                <div class="container">
+                    <div class="copyright">Birauta Real Estate and Housing Pvt Ltd</div>
+                </div>
+            </section>
+        </footer>
+        <!-- Footer Area End Here -->
+    </div>
+    <!-- Modal Start-->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="title-default-bold mb-none">Login</div>
+                    <button class="close" data-dismiss="modal" type="button">×</button>
+                </div>
+                <div class="modal-body">
+                    <form class="login-form">
+                        <input class="main-input-box" placeholder="User Name" type="text">
+                        <input class="main-input-box" placeholder="Password" type="password">
+                        <div class="inline-box mb-5 mt-4">
+                            <div class="checkbox checkbox-primary">
+                                <input id="checkbox1" type="checkbox" />
+                                <label for="checkbox1">Remember Me</label>
+                            </div>
+                            <label class="lost-password"><a href="#">Lost your password?</a></label>
+                        </div>
+                        <div class="inline-box mb-5 mt-4">
+                            <button class="btn-fill" type="submit" value="Login">Login</button>
+                            <a class="btn-register" href="{% url 'register' %}"><i class="fas fa-user"></i>Register Here!</a>
+                        </div>
+                        </input></input>
+                    </form>
+               
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal End-->
+    <!-- Jquery Js -->
+    <script src="{% static 'base/js/jquery-3.3.1.min.js' %}"></script>
+    <!-- Bootstrap Js -->
+    <script src="{% static 'base/js/popper.min.js' %}"></script>
+    <!-- Bootstrap Js -->
+    <script src="{% static 'base/js/bootstrap.min.js' %}"></script>
+    <!-- Plugins Js -->
+    <script src="{% static 'base/js/plugins.js' %}"></script>
+    <!-- Imagesloaded Js -->
+    <script src="{% static 'base/js/imagesloaded.pkgd.min.js' %}"></script>
+    <!-- Isotope js -->
+    <script src="{% static 'base/js/isotope.pkgd.min.js' %}"></script>
+    <!-- Silk Cauosel JS -->
+    <script src="{% static 'base/js/slick.min.js' %}"></script>
+    <!-- Parallaxie JS -->
+    <script src="{% static 'base/js/parallaxie.js' %}"></script>
+    <!-- Smoothscroll Js -->
+    <script src="{% static 'base/js/smoothscroll.min.js' %}"></script>
+    <!-- Counterup Js -->
+    <script src="{% static 'base/js/jquery.counterup.min.js' %}"></script>
+    <!-- Waypoints Js -->
+    <script src="{% static 'base/js/waypoints.min.js' %}"></script>
+    <!-- Nouislider Js -->
+    <script src="{% static 'base/js/nouislider.min.js' %}"></script>
+    <!-- wNumb Js -->
+    <script src="{% static 'base/js/wNumb.js' %}"></script>
+    <!-- Owl Carousel Js -->
+    <script src="{% static 'base/js/owl.carousel.min.js' %}"></script>
+    <!-- Magnific Popup Js -->
+    <script src="{% static 'base/js/jquery.magnific-popup.min.js' %}"></script>
+    <!-- Select 2 Js -->
+    <script src="{% static 'base/js/select2.full.min.js' %}"></script>
+    <!-- Date Time Picker Js -->
+    <script src="{% static 'base/js/jquery.datetimepicker.full.min.js' %}"></script>
+    <!-- Validator js -->
+    <script src="{% static 'base/js/validator.min.js' %}"></script>
+    <!-- Google Map js -->
+    {% comment %} <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtmXSwv4YmAKtcZyyad9W7D4AC08z0Rb4"></script> {% endcomment %}
+    <!-- Custom Js -->
+    <script src="{% static 'base/js/main.js' %}"></script>
+</body>
+
+</html>

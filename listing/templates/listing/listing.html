@@ -1,0 +1,303 @@
+{% extends "base.html" %}
+{% load static %}
+
+  {% block title %}
+  <title>Birauta Real Estate and Housing Pvt Ltd | Properties</title>
+  {% endblock title %}
+  {% block main %}
+  
+  <div class="wrapper" id="wrapper">
+    <section class="full-width-container inner-page-top-margin bg--accent">
+      <div class="container-fluid">
+        <div class="row no-gutters">
+          <div class="col-xl-9 col-12">
+           <div class="listing-box-wrap-layout1">
+            <form method="GET" enctype="multipart/form-data" > 
+              <div class="filter-box-layout1">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="input-group stylish-input-group">
+                              {{ form.business_name }}
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="input-group stylish-input-group">
+                              {{ form.business_location }}
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="input-group">
+                              {{ form.business_category }}
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="input-group">
+                              {{ form.business_subcategory }}
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="input-group">
+                              {{ form.business_sort }}
+                          </div>
+                      </div>
+                      <div class="col-md-3 d-flex">
+                          <button class="btn btn-primary btn-block align-self-stretch" id="submitBtn" type="submit" style="background-color: #FF4A52; color: #fff; font-size: 20px; padding: 10px 20px; height: 100%; border-radius:8px; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+                              Search <i class="flaticon-search"></i>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </form>
+              <div class="item-sorting-wrap">
+                <div class="row">
+                  <div class="col-sm-6 col-12 d-flex align-items-center">
+                    <div class="item-sorting-title">
+                      Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ listings.count }}
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-12 d-flex align-items-center justify-content-sm-end">
+                    <div class="layout-switcher">
+                      <ul>
+                        <li class="active"><a class="product-view-trigger" data-type="listing-box-grid" href="#"><i
+                              class="fa fa-th-large"></i></a></li>
+                        <li><a class="product-view-trigger" data-type="listing-box-list" href="#"><i
+                              class="fa fa-list"></i></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="listing-box-grid" id="listing-view">
+                <div class="row">
+                  {% for listing in page_obj %}    
+                  <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                    <div class="product-box">
+                      <div class="item-img bg--gradient-50">
+                        {% if listing.opening_hours %}
+                        <div class="item-status status-open active">{{listing.opening_hours}}</div>
+                        {% endif %}
+                        <img alt="Listing" class="img-fluid grid-view-img"
+                          src="{{listing.image1.url}}" />
+                        <img alt="Listing" class="img-fluid list-view-img"
+                          src="{{listing.image1.url}}" />
+                          <ul class="item-rating">
+                            {% for i in "12345"|make_list %}
+                                {% if i|add:0 <= listing.average_rating|default_if_none:0 %}
+                                    <li><i class="fas fa-star"></i></li>  {# Full star #}
+                                {% elif i|add:"-1" < listing.average_rating|default_if_none:0 %}
+                                    <li><i class="fas fa-star-half-alt"></i></li>  {# Half star #}
+                                {% else %}
+                                    <li><i class="far fa-star"></i></li>  {# Empty star #}
+                                {% endif %}
+                            {% endfor %}
+                            <li><span>{{ listing.average_rating|default_if_none:0 }}<span> / 5</span></span> </li>
+                        </ul>
+                        <div class="item-logo"><img alt="Logo" src="{{ listing.subcategory.first.category.logo.url }}" /></div>
+                      </div>
+                      <div class="item-content"> 
+                        <h3 class="item-title"><a href="{% url 'listing_details' listing.id %}">{{listing.business_name}}</a></h3>
+                        <p class="item-paragraph">{{listing.description|truncatewords:10|safe}}
+                        </p>
+                        <ul class="contact-info">
+                          <li><i class="fas fa-map-marker-alt"></i>{{listing.street}}, {{listing.city}}</li>
+                        </ul>
+                        <ul class="meta-item">
+                          <li class="item-btn"><a class="btn-fill" href="{% url 'listing_details' listing.id %}">Details</a></li>
+                          <li class="ctg-name"><a ><img alt="Logo" style="width: 40px; margin-right: 5px;" src="{{ listing.subcategory.first.category.logo.url }}" />{{ listing.subcategory.first.category.name }}, {{ listing.subcategory.first.name }}</a></li>
+                          <li class="entry-meta">
+                            <ul>
+                              <li class="tooltip-item ctg-icon" data-tips="{{ listing.subcategory.first.category.name }}"><a style="border: none;"><img alt="Logo" src="{{ listing.subcategory.first.category.logo.url }}" /></a></li>
+                              <li class="tooltip-item" data-tips="Gallery"><a href="{% url 'listing_details' listing.id %}"><i class="far fa-image"></i></a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+                <ul class="pagination-layout1">
+                  {% if page_obj.has_previous %}
+                      <li><a href="?page={{ page_obj.previous_page_number }}"><i class="flaticon-back"></i></a></li>
+                  {% endif %}
+                  {% for i in page_obj.paginator.page_range %}
+                      {% if page_obj.number == i %}
+                          <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                      {% else %}
+                          <li><a href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                  {% endfor %}
+                  {% if page_obj.has_next %}
+                      <li><a href="?page={{ page_obj.next_page_number }}"><i class="flaticon-right-arrow"></i></a></li>
+                  {% endif %}
+              </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-12">
+            <div id="map" style="width:100%; height: 100%;"></div>
+          </div> 
+        </div>
+      </div>
+    </section>
+    <!-- Listing Area End Here -->
+    <!-- Footer Area Start Here -->
+    <footer>
+      <section class="footer-bottom-wrap2">
+        <div class="container-fluid"> 
+          <div class="row">
+            <div class="col-sm-6 col-12">
+              <div class="copyright-wrap">
+                <div class="copyright">Birauta Real Estate and Housing Pvt Ltd</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-12">
+              <div class="footer-social-wrap">
+                <ul>
+                  {% if context_about.facebook %}
+                  <li><a href="{{ context_about.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                  {% endif %}
+                  {% if context_about.twitter %}
+                      <li><a href="{{ context_about.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                  {% endif %}
+                  {% if context_about.linkedin %}
+                      <li><a href="{{ context_about.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                  {% endif %}
+                  {% if context_about.pinterest %}
+                      <li><a href="{{ context_about.pinterest }}" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+                  {% endif %}
+                  {% if context_about.skype %}
+                      <li><a href="{{ context_about.skype }}" target="_blank"><i class="fab fa-skype"></i></a></li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </footer>
+  </div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+      $('#id_business_category').change(function() {
+        var selectedCategory = $(this).val();
+        if (!selectedCategory || selectedCategory === "default") {  // Update "default" to the value of your default category
+            $.ajax({
+                url: '/listing/get_all_subcategories/',  // Update this URL to the one in your Django project
+                success: function(data) {
+                    var options = '<option value="">Choose Subcategory</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    }
+                    $('#id_business_subcategory').html(options);
+                }
+            });
+        } else if (selectedCategory) {
+              $.ajax({
+                  url: '/listing/get_subcategories/',  // Update this URL to the one in your Django project
+                  data: {
+                      'category': selectedCategory
+                  },
+                  success: function(data) {
+                      var options = '<option value="">Choose Subcategory</option>';
+                      for (var i = 0; i < data.length; i++) {
+                          options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                      }
+                      $('#id_business_subcategory').html(options);
+                  }
+              });
+          } else {
+              $('#id_business_subcategory').html('<option value="">Choose Subcategory</option>');
+          }
+      });
+  });
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtNLv5ksERMHTObv615uHMNmFWpEeLkKA&callback=initMap"></script>
+  <script>
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: calculateCenter(), // Center based on available listing coordinates
+        mapTypeId: 'roadmap',
+        styles: [
+          {
+            "featureType": "poi",
+            "elementType": "labels",
+            "stylers": [
+              { "visibility": "on" }
+            ]
+          },
+        
+        ]
+      });
+  
+      var infowindow = new google.maps.InfoWindow();
+  
+      var listings = [
+        {% for listing in page_obj %}
+          {% if listing.latitude and listing.longitude %}
+            {
+              lat: {{ listing.latitude }},
+              lng: {{ listing.longitude }},
+              name: "{{ listing.business_name }}"
+            },
+          {% endif %}
+        {% endfor %}
+      ];
+  
+      var bounds = new google.maps.LatLngBounds(); // Create bounds object
+  
+      listings.forEach(function(listing) {
+          var marker = new google.maps.Marker({
+            position: { lat: listing.lat, lng: listing.lng },
+            map: map
+          });
+    
+          bounds.extend(marker.getPosition()); // Extend bounds with marker position
+    
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent('<div><strong>' + listing.name + '</strong></div>');
+            infowindow.open(map, this);
+          });
+      });
+  
+      // Center map and adjust zoom to fit all markers within bounds
+      map.fitBounds(bounds);
+    }
+  
+    // Function to calculate the center of the map based on available listing coordinates
+    function calculateCenter() {
+      var latitudes = [];
+      var longitudes = [];
+      {% for listing in page_obj %}
+        {% if listing.latitude and listing.longitude %}
+          latitudes.push({{ listing.latitude }});
+          longitudes.push({{ listing.longitude }});
+        {% endif %}
+      {% endfor %}
+  
+      if (latitudes.length === 0 || longitudes.length === 0) {
+        // If no listings have coordinates, default to a center point
+        return { lat: 0, lng: 0 };
+      }
+  
+      // Calculate the average latitude and longitude
+      var avgLat = latitudes.reduce((a, b) => a + b, 0) / latitudes.length;
+      var avgLng = longitudes.reduce((a, b) => a + b, 0) / longitudes.length;
+  
+      return { lat: avgLat, lng: avgLng };
+    }
+  </script>
+  
+
+  
+
+{% endblock main %}
+ 
+  

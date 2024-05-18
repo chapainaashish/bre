@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Birauta Real Estate and Housing Pvt Ltd | Blog List</title>
+{% endblock title %}
+
+{% block main %}
+  <!-- Inne Page Banner Area Start Here -->
+  <section class="inner-page-banner bg-common inner-page-top-margin overlay-dark-40"
+    data-bg-image="{{ blog_image.image.url }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="breadcrumbs-area">
+            <h1>Our Latest Blog List</h1>
+            <ul>
+              <li>
+                <a href="{% url 'home' %}" >Home</a>
+              </li>
+              <li>Blog</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Inne Page Banner Area End Here -->
+  <!-- Blog Area Start Here -->
+  <section class="padding-top-6 padding-bottom-7 bg--accent">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          {% for blog in page_obj  %} 
+          <div class="blog-box-layout2">
+            <div class="post-thumb">
+              <a href="{% url 'blog_details' blog.id %}" ><img alt="Blog" class="img-fluid"
+                  src="{{ blog.image.url }}" /></a>
+            </div>
+            <div class="post-content">
+              <ul class="entry-meta">
+                <li><a class="entry-date"  >{{blog.created_at}}</a> . {{blog.category.name}}</li>
+              </ul>
+              <h3 class="post-title"><a href="{% url 'blog_details' blog.id %}" >{{blog.title}}</a></h3>
+              <div class="content">
+                <p>{{blog.body|truncatewords:20|safe}}</p>
+              </div>
+              <a class="btn-text size-sm color-dark hover-primary btn-icon" href="{% url 'blog_details' blog.id %}" >Read
+                More<i class="item-icon fas fa-long-arrow-alt-right"></i></a>
+            </div>
+          </div>
+          {% endfor %}
+    
+          <ul class="pagination-layout1">
+            {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}"><i class="flaticon-back"></i></a></li>
+            {% endif %}
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}"><i class="flaticon-right-arrow"></i></a></li>
+            {% endif %}
+        </ul>
+
+        </div>
+        <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+      
+          <div class="widget widget-box-padding widget-categories">
+            <h3 class="widget-title">Categories</h3>
+            <ul class="block-list">
+              {% for category in blog_categories %}
+              <li>
+                  <a href="{% url 'blog_list' %}?category_id={{category.id}}">
+                      <i class="fas fa-angle-right"></i>{{category.name}}
+                  </a>
+              </li>
+              {% endfor %}
+          </ul>
+          </div>
+          <div class="widget widget-box-padding widget-follow-us">
+            <h3 class="widget-title">Follow Us</h3>
+            <ul class="inline-list">
+              {% if context_about.facebook %}
+              <li class="single-item"><a href="{{ context_about.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+              {% endif %}
+              {% if context_about.twitter %}
+                  <li class="single-item"><a href="{{ context_about.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+              {% endif %}
+              {% if context_about.linkedin %}
+                  <li class="single-item"><a href="{{ context_about.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+              {% endif %}
+              {% if context_about.pinterest %}
+                  <li class="single-item"><a href="{{ context_about.pinterest }}" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+              {% endif %}
+              {% if context_about.skype %}
+                  <li class="single-item"><a href="{{ context_about.skype }}" target="_blank"><i class="fab fa-skype"></i></a></li>
+              {% endif %}
+              {% if context_about.rss %}
+                  <li class="single-item"><a href="{{ context_about.rss }}" target="_blank"><i class="fas fa-rss"></i></a></li>
+              {% endif %}
+              {% if context_about.dribble %}
+                  <li class="single-item"><a href="{{ context_about.dribble }}" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+              {% endif %}
+              {% if context_about.instagram %}
+                  <li class="single-item"><a href="{{ context_about.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+              {% endif %}
+              {% if context_about.google_plus %}
+                  <li class="single-item"><a href="{{ context_about.google_plus }}" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
+              {% endif %}
+              {% if context_about.vk %}
+                  <li class="single-item"><a href="{{ context_about.vk }}" target="_blank"><i class="fab fa-vk"></i></a></li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="widget widget-box-padding widget-new-rated">
+            <h3 class="widget-title">Latest Posts</h3>
+            <ul class="block-list">
+              {% for blog in blogs|slice:":5" %}
+              <li class="single-item">
+                <div class="item-img">
+                  <a  href="{% url 'blog_details' blog.id %}"><img alt="Post" src="{{ blog.image.url }}" /></a>
+                </div>
+                <div class="item-content">
+                  <h4 class="item-title"><a href="{% url 'blog_details' blog.id %}">{{blog.title}}</a></h4>
+                  <div class="item-place">{{blog.category.name}}</div>
+                </div>
+              </li>
+              
+              {% endfor %}
+              
+            </ul>
+          </div>
+ 
+          <div class="widget widget-box-padding widget-poster">
+            <div class="item-img">
+              <img alt="Poster" class="img-fluid" src="{{ context_ad_image.image.url }}" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Blog Area End Here -->
+{% endblock main %}
+

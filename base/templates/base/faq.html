@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+<title>Birauta Real Estate and Housing Pvt Ltd | Faq</title>
+
+{% endblock title %}
+
+{% block main %}
+<!-- Inne Page Banner Area Start Here -->
+<section class="inner-page-banner bg-common inner-page-top-margin overlay-dark-40"
+    data-bg-image="{{ faq_image.image.url }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumbs-area">
+                    <h1>Faq’s Page</h1>
+                    <ul>
+                        <li>
+                            <a href="{% url 'home' %}" >Home</a>
+                        </li>
+                        <li>Faq’s</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Inne Page Banner Area End Here -->
+<!-- Faq Content Area Start Here -->
+<section class="faq-wrap-layout1 padding-top-10 padding-bottom-10">
+    <div class="container">
+        <div class="section-heading heading-dark heading-center mb-0">
+            <div class="item-sub-title">Have you any kind of question, please feel free ask us.</div>
+            <h2 class="item-title">Frequently Ask Any Question</h2>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8 col-sm-9 col-12">
+                <div class="faq-box-layout1" id="accordion">
+                    <div class="d-flex justify-content-center align-items-center vh-100 mb-4 mt-0">
+                        <form method="get" style="width: 60%;">
+                            <ul class="form-items">
+                                <li>
+                                    <div class="input-group stylish-input-group">
+                                        {{ form.search }}
+                                        <span class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="submit" style="height: 50px; background-color: #E9363D; font-size: 15px; color:white; border-style:none; padding: 0 20px;">
+                                                Search
+                                            </button>
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+
+                    {% for faq in faqs %}
+                    <div class="card single-item">
+                        <div class="card-header item-nav">
+                            <a class="collapsed" data-parent="#accordion" data-toggle="collapse"
+                            href="#collapse{{ forloop.counter }}">
+                        {{faq.question}}
+
+                            </a>
+                        </div>
+                        <div class="collapse item-content-wrap" data-parent="#accordion" id="collapse{{ forloop.counter }}">
+                            <div class="card-body item-content">
+                                <p>{{faq.answer}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Faq Content Area End Here -->
+{% endblock main %}
+
