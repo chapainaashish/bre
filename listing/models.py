@@ -270,7 +270,7 @@ class PropertyContact(models.Model):
     listing = models.ForeignKey(
         ListingPost,
         on_delete=models.CASCADE,
-        related_name="reviews",
+        related_name="contacts",
         help_text="Select the property",
     )
     subject = models.CharField(max_length=255, help_text="Subject of the message")
