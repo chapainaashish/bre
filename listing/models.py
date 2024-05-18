@@ -91,7 +91,9 @@ class ListingPost(models.Model):
         User, on_delete=models.CASCADE, help_text="Author who submitted the listing"
     )
     business_name = models.CharField(
-        max_length=1000, help_text="Enter the property name"
+        max_length=1000,
+        help_text="Enter the property name",
+        verbose_name="Property name",
     )
     category = models.ForeignKey(
         ListingCategory,
@@ -138,7 +140,11 @@ class ListingPost(models.Model):
     )
 
     state = models.CharField(
-        max_length=1000, help_text="Enter the province name", blank=True, null=True
+        max_length=1000,
+        help_text="Enter the province name",
+        verbose_name="Province",
+        blank=True,
+        null=True,
     )
 
     latitude = models.CharField(
@@ -208,7 +214,7 @@ class ListingPost(models.Model):
         help_text="Select the property amenities",
         blank=True,
     )
-    price = models.CharField(help_text="Enter the listing high price", max_length=255)
+    price = models.CharField(help_text="Enter the property price", max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

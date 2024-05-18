@@ -139,6 +139,9 @@ class ListingReviewAdmin(ModelAdmin):
     def show_status(self, obj):
         return obj.get_status_display()
 
+    def has_add_permission(self, request):
+        return False
+
     def save_model(self, request, obj, form, change):
         if not obj.pk:  # Object is being created, not updated
             if not obj.user_id:  # User field is not populated
