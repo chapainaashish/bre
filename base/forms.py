@@ -47,7 +47,7 @@ class HeroForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 "class": "form-control",
-                "placeholder": "Enter business name or keyword...",
+                "placeholder": "Enter property name...",
                 "id": "form-website",
                 "required": "",
                 "data-error": "Search text required",
@@ -59,7 +59,7 @@ class HeroForm(forms.Form):
     business_category = forms.ModelChoiceField(
         queryset=ListingCategory.objects.all(),
         required=False,
-        empty_label="Choose Category",
+        empty_label="Choose property category",
         widget=forms.Select(
             attrs={
                 "class": "select2 form-control",

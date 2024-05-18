@@ -34,7 +34,7 @@ class ListingAmenities(models.Model):
         return str(self.title)
 
     class Meta:
-        verbose_name_plural = "Listing Amenties"
+        verbose_name_plural = "Property Amenties"
         ordering = ("title",)
 
 
@@ -60,7 +60,7 @@ class ListingCategory(models.Model):
         return self.category_listing.filter(status=APPROVED).count()
 
     class Meta:
-        verbose_name_plural = "Listing Categories"
+        verbose_name_plural = "Property Categories"
         ordering = ("name",)
 
 
@@ -82,7 +82,7 @@ class ListingSubCategory(models.Model):
         return self.subcategory_listing.count()
 
     class Meta:
-        verbose_name_plural = "Listing SubCategories"
+        verbose_name_plural = "Property SubCategories"
         ordering = ("name",)
 
 
@@ -263,6 +263,28 @@ class ListingPost(models.Model):
         ordering = ("-created_at",)
 
 
+class PropertyContact(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, help_text="Author who created the review"
+    )
+    listing = models.ForeignKey(
+        ListingPost,
+        on_delete=models.CASCADE,
+        related_name="reviews",
+        help_text="Select the property",
+    )
+    subject = models.CharField(max_length=255, help_text="Subject of the message")
+    message = models.TextField(help_text="Contact Description")
+    submit_date = models.DateField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return str(self.subject)
+
+    class Meta:
+        verbose_name_plural = "Properties Contacts"
+        ordering = ("-submit_date",)
+
+
 class ListingReview(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, help_text="Author who created the review"
@@ -292,6 +314,6 @@ class ListingReview(models.Model):
         return f"{str(self.listing)}_{str(self.user)}"
 
     class Meta:
-        verbose_name_plural = "Listing Reviews"
+        verbose_name_plural = "Property Reviews"
         unique_together = ("user", "listing")
         ordering = ("-created_at",)

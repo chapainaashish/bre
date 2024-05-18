@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 
 from base.models import SiteImage
 
-from .forms import ContactListingForm, ListingForm, ListingPostForm, ListingReviewForm
+from .forms import ContactPropertyForm, ListingForm, ListingPostForm, ListingReviewForm
 from .models import (
     APPROVED,
     ListingAmenities,
@@ -58,17 +58,13 @@ def listing(request):
             listings = listings.filter(subcategory=subcategory_id)
         business_name = form.cleaned_data.get("business_name")
         if business_name is not None:
-            listings = listings.filter(
-                Q(business_name__icontains=business_name)
-                | Q(keywords__icontains=business_name)
-            )
+            listings = listings.filter(Q(business_name__icontains=business_name))
         business_location = form.cleaned_data.get("business_location")
         if business_location is not None:
             listings = listings.filter(
                 Q(location__icontains=business_location)
                 | Q(street__icontains=business_location)
                 | Q(city__icontains=business_location)
-                | Q(country__icontains=business_location)
             )
         sorting = form.cleaned_data.get("business_sort")
         print("Sorting:" + sorting)
@@ -150,7 +146,7 @@ def listing_details(request, listing_id):
         listing__id=listing_id, status=APPROVED
     )
     review_form = ListingReviewForm(request.POST or None)
-    contact_form = ContactListingForm(request.POST or None)
+    contact_form = ContactPropertyForm(request.POST or None)
     contact_form_success = False
 
     if request.method == "POST":
@@ -183,9 +179,12 @@ def listing_details(request, listing_id):
 
         elif "contact_submit" in request.POST:
             if contact_form.is_valid():
-                print(contact_form.cleaned_data)
+                contact = contact_form.save(commit=False)
+                contact.user = request.user
+                contact.listing = listing
+                contact.save()
+                contact_form = ContactPropertyForm()
                 contact_form_success = True
-                #! TODO: Associate request.user email and send email to the listing.email
 
     return render(
         request,

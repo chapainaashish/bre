@@ -117,16 +117,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://digitaline.com",
-    "https://www.digitaline.com",
-    "http://digitaline.com",
-    "http://www.digitaline.com",
-]
 
 UNFOLD = {
-    "SITE_TITLE": "ListyGo",
-    "SITE_HEADER": "ListyGo",
+    "SITE_TITLE": "Birauta Real Estate and Housing Pvt Ltd",
+    "SITE_HEADER": "Birauta Real Estate and Housing Pvt Ltd",
     "SITE_ICON": lambda request: static("base/img/favicon.png"),
     "COLORS": {
         "primary": {
@@ -192,7 +186,7 @@ UNFOLD = {
                 "separator": True,
                 "items": [
                     {
-                        "title": "Business Listings",
+                        "title": "Properties",
                         "icon": "post",
                         "link": reverse_lazy("admin:listing_listingpost_changelist"),
                         "permission": lambda request: request.user.has_perm(
@@ -200,7 +194,7 @@ UNFOLD = {
                         ),
                     },
                     {
-                        "title": "Listing Amenities",
+                        "title": "Property Amenities",
                         "icon": "roofing",
                         "link": reverse_lazy(
                             "admin:listing_listingamenities_changelist"
@@ -210,7 +204,7 @@ UNFOLD = {
                         ),
                     },
                     {
-                        "title": "Listing Categories",
+                        "title": "Property Categories",
                         "icon": "category",
                         "link": reverse_lazy(
                             "admin:listing_listingcategory_changelist"
@@ -220,7 +214,7 @@ UNFOLD = {
                         ),
                     },
                     {
-                        "title": "Listing SubCategories",
+                        "title": "Property SubCategories",
                         "icon": "category",
                         "link": reverse_lazy(
                             "admin:listing_listingsubcategory_changelist"
@@ -230,7 +224,7 @@ UNFOLD = {
                         ),
                     },
                     {
-                        "title": "Listing Reviews",
+                        "title": "Property Reviews",
                         "icon": "star_half",  # Choose an appropriate icon
                         "link": reverse_lazy("admin:listing_listingreview_changelist"),
                         "permission": lambda request: request.user.has_perm(
@@ -279,14 +273,6 @@ UNFOLD = {
                         "link": reverse_lazy("admin:base_about_changelist"),
                         "permission": lambda request: request.user.has_perm(
                             "base.view_about"
-                        ),
-                    },
-                    {
-                        "title": "Teams",
-                        "icon": "groups",
-                        "link": reverse_lazy("admin:base_team_changelist"),
-                        "permission": lambda request: request.user.has_perm(
-                            "base.view_team"
                         ),
                     },
                     {

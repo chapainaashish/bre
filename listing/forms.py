@@ -1,7 +1,13 @@
 from django import forms
 from tinymce.widgets import TinyMCE
 
-from .models import ListingCategory, ListingPost, ListingReview, ListingSubCategory
+from .models import (
+    ListingCategory,
+    ListingPost,
+    ListingReview,
+    ListingSubCategory,
+    PropertyContact,
+)
 
 
 class ListingForm(forms.Form):
@@ -90,29 +96,29 @@ class ListingReviewForm(forms.ModelForm):
         }
 
 
-class ContactListingForm(forms.Form):
-    subject = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "",
-                "data-error": "Subject field is required",
-            }
-        ),
-    )
-    message = forms.CharField(
-        required=True,
-        widget=forms.Textarea(
-            attrs={
-                "class": "textarea form-control",
-                "cols": "20",
-                "rows": "7",
-                "placeholder": "",
-                "data-error": "Message field is required",
-            }
-        ),
-    )
+class ContactPropertyForm(forms.Form):
+    class Meta:
+        model = PropertyContact
+        fields = ["subject", "message"]
+
+        widgets = {
+            "subject": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "",
+                    "data-error": "Subject field is required",
+                },
+            ),
+            "message": forms.Textarea(
+                attrs={
+                    "class": "textarea form-control",
+                    "cols": "20",
+                    "rows": "7",
+                    "placeholder": "",
+                    "data-error": "Message field is required",
+                }
+            ),
+        }
 
 
 class ListingPostForm(forms.ModelForm):
