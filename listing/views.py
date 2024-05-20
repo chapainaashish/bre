@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 
 from base.models import SiteImage
 
-from .forms import ContactPropertyForm, ListingForm, ListingPostForm, ListingReviewForm
+from .forms import ListingForm, ListingPostForm, ListingReviewForm, PropertyContactForm
 from .models import (
     APPROVED,
     ListingAmenities,
@@ -146,7 +146,7 @@ def listing_details(request, listing_id):
         listing__id=listing_id, status=APPROVED
     )
     review_form = ListingReviewForm(request.POST or None)
-    contact_form = ContactPropertyForm(request.POST or None)
+    contact_form = PropertyContactForm(request.POST or None)
     contact_form_success = False
 
     if request.method == "POST":
@@ -183,9 +183,11 @@ def listing_details(request, listing_id):
                 contact.user = request.user
                 contact.listing = listing
                 contact.save()
-                contact_form = ContactPropertyForm()
+                contact_form = PropertyContactForm()
                 contact_form_success = True
 
+    print(contact_form)
+    print(review_form)
     return render(
         request,
         "listing/listing_details.html",

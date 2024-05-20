@@ -306,6 +306,13 @@ UNFOLD = {
 }
 
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://digitaline.com",
+    "https://www.digitaline.com",
+    "http://digitaline.com",
+    "http://www.digitaline.com",
+]
+
 TINYMCE_DEFAULT_CONFIG = {
     "height": 656,
     "plugins": [

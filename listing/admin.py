@@ -27,7 +27,7 @@ class ListingCategoryAdmin(ModelAdmin):
 
 @admin.register(models.ListingSubCategory)
 class ListingSubCategoryAdmin(ModelAdmin):
-    list_display = ["name", "created_at", "updated_at"]
+    list_display = ["name", "category", "updated_at"]
     list_per_page = 10
     search_fields = ["name"]
 
@@ -89,15 +89,6 @@ class ListingPostAdmin(ModelAdmin):
             return db_field.formfield(**kwargs)
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        if obj is None or obj.plan != models.PAID:
-            form.base_fields["image4"].disabled = True
-            form.base_fields["image5"].disabled = True
-            form.base_fields["image6"].disabled = True
-        form.base_fields["subcategory"].choices = self.get_grouped_choices()
-        return form
-
     def save_model(self, request, obj, form, change):
         if not obj.pk:
             if not obj.user_id:
@@ -147,3 +138,10 @@ class ListingReviewAdmin(ModelAdmin):
             if not obj.user_id:  # User field is not populated
                 obj.user_id = request.user.id
         super().save_model(request, obj, form, change)
+
+
+@admin.register(models.PropertyContact)
+class PropertyContactAdmin(ModelAdmin):
+    list_display = ["subject", "listing", "user"]
+    list_per_page = 10
+    search_fields = ["subject"]

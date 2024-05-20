@@ -96,7 +96,7 @@ class ListingReviewForm(forms.ModelForm):
         }
 
 
-class ContactPropertyForm(forms.Form):
+class PropertyContactForm(forms.ModelForm):
     class Meta:
         model = PropertyContact
         fields = ["subject", "message"]

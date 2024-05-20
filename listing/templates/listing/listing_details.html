@@ -84,7 +84,7 @@
             <div class="row no-gutters">
               <div class="col-12"> 
                 <div class="media">
-                  <figure><img alt="Listing" src="{{ listing.subcategory.first.category.logo.url }}" /></figure>
+                  <figure><img alt="Listing" style="width:60px !important;" src="{{ listing.subcategory.first.category.logo.url }}" /></figure>
                   <div class="media-body space-md">
                     <h2 class="item-title">{{listing.business_name}}</h2>
                     <p>{{listing.location}},  {{listing.street}}</p>
@@ -359,7 +359,7 @@
           </div>
         </div>
         <div class="widget widget-contact-form widget-box-padding">
-          <h3 class="widget-title">Contact Birauta Real Estate and Housing Pvt Ltd Now</h3>
+          <h3 class="widget-title">Contact Birauta Real Estate and Housing</h3>
           <form class="contact-form-box" onsubmit="return validateForm()" method="post">
             {% csrf_token %}
             <div class="row">

@@ -10,7 +10,7 @@
     <section class="full-width-container inner-page-top-margin bg--accent">
       <div class="container-fluid">
         <div class="row no-gutters">
-          <div class="col-xl-9 col-12">
+          <div class="col-xl-12 col-12">
            <div class="listing-box-wrap-layout1">
             <form method="GET" enctype="multipart/form-data" > 
               <div class="filter-box-layout1">
@@ -92,7 +92,6 @@
                             {% endfor %}
                             <li><span>{{ listing.average_rating|default_if_none:0 }}<span> / 5</span></span> </li>
                         </ul>
-                        <div class="item-logo"><img alt="Logo" src="{{ listing.subcategory.first.category.logo.url }}" /></div>
                       </div>
                       <div class="item-content"> 
                         <h3 class="item-title"><a href="{% url 'listing_details' listing.id %}">{{listing.business_name}}</a></h3>
@@ -117,27 +116,23 @@
                   </div>
                   {% endfor %}
                 </div>
-                <ul class="pagination-layout1">
-                  {% if page_obj.has_previous %}
-                      <li><a href="?page={{ page_obj.previous_page_number }}"><i class="flaticon-back"></i></a></li>
-                  {% endif %}
-                  {% for i in page_obj.paginator.page_range %}
-                      {% if page_obj.number == i %}
-                          <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
-                      {% else %}
-                          <li><a href="?page={{ i }}">{{ i }}</a></li>
-                      {% endif %}
-                  {% endfor %}
-                  {% if page_obj.has_next %}
-                      <li><a href="?page={{ page_obj.next_page_number }}"><i class="flaticon-right-arrow"></i></a></li>
-                  {% endif %}
-              </ul>
               </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-12">
-            <div id="map" style="width:100%; height: 100%;"></div>
-          </div> 
+              <ul class="pagination-layout1" style="margin-top:30px;">
+                {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}"><i class="flaticon-back"></i></a></li>
+                {% endif %}
+                {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}"><i class="flaticon-right-arrow"></i></a></li>
+                {% endif %}
+            </ul>
+            </div> 
         </div>
       </div>
     </section>
@@ -177,6 +172,7 @@
         </div>
       </section>
     </footer>
+    <!-- Footer Area End Here -->
   </div>
 
 
@@ -217,83 +213,7 @@
       });
   });
   </script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtNLv5ksERMHTObv615uHMNmFWpEeLkKA&callback=initMap"></script>
-  <script>
-    var map;
-    function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: calculateCenter(), // Center based on available listing coordinates
-        mapTypeId: 'roadmap',
-        styles: [
-          {
-            "featureType": "poi",
-            "elementType": "labels",
-            "stylers": [
-              { "visibility": "on" }
-            ]
-          },
-        
-        ]
-      });
   
-      var infowindow = new google.maps.InfoWindow();
-  
-      var listings = [
-        {% for listing in page_obj %}
-          {% if listing.latitude and listing.longitude %}
-            {
-              lat: {{ listing.latitude }},
-              lng: {{ listing.longitude }},
-              name: "{{ listing.business_name }}"
-            },
-          {% endif %}
-        {% endfor %}
-      ];
-  
-      var bounds = new google.maps.LatLngBounds(); // Create bounds object
-  
-      listings.forEach(function(listing) {
-          var marker = new google.maps.Marker({
-            position: { lat: listing.lat, lng: listing.lng },
-            map: map
-          });
-    
-          bounds.extend(marker.getPosition()); // Extend bounds with marker position
-    
-          google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent('<div><strong>' + listing.name + '</strong></div>');
-            infowindow.open(map, this);
-          });
-      });
-  
-      // Center map and adjust zoom to fit all markers within bounds
-      map.fitBounds(bounds);
-    }
-  
-    // Function to calculate the center of the map based on available listing coordinates
-    function calculateCenter() {
-      var latitudes = [];
-      var longitudes = [];
-      {% for listing in page_obj %}
-        {% if listing.latitude and listing.longitude %}
-          latitudes.push({{ listing.latitude }});
-          longitudes.push({{ listing.longitude }});
-        {% endif %}
-      {% endfor %}
-  
-      if (latitudes.length === 0 || longitudes.length === 0) {
-        // If no listings have coordinates, default to a center point
-        return { lat: 0, lng: 0 };
-      }
-  
-      // Calculate the average latitude and longitude
-      var avgLat = latitudes.reduce((a, b) => a + b, 0) / latitudes.length;
-      var avgLng = longitudes.reduce((a, b) => a + b, 0) / longitudes.length;
-  
-      return { lat: avgLat, lng: avgLng };
-    }
-  </script>
   
 
   
