@@ -90,9 +90,15 @@
                     <li><i class="fas fa-map-marker-alt"></i>{{listing.street}}, {{listing.city}}</li>
                     <li><i class="far fa-calendar-alt"></i>{{listing.created_at}}</li>
                   </ul>
+                  <ul class="meta-item">
+                    <li class="item-btn"><a class="btn-fill" href="{% url 'edit_listing' listing.id %}">Edit</a></li>
+                    <li class="item-btn"><a class="btn-fill"  href="{% url 'delete_listing' listing.id %}">Delete</a>
+                    </li>
+                  </ul>
                 </div>
               </div>          
               {% endfor %}
+               {% if listings %}
               <ul class="pagination-layout1">
                 {% if page_obj.has_previous %}
                     <li><a href="?page={{ page_obj.previous_page_number }}"><i class="flaticon-back"></i></a></li>
@@ -107,7 +113,8 @@
                 {% if page_obj.has_next %}
                     <li><a href="?page={{ page_obj.next_page_number }}"><i class="flaticon-right-arrow"></i></a></li>
                 {% endif %}
-               </ul>
+            </ul>
+              {% endif %}
             </div>
           </div>   
              <div class="tab-pane fade" id="account-details">

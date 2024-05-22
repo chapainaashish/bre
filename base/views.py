@@ -1,9 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Prefetch
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from blog.models import BlogPost
 from listing.models import (
-    APPROVED,
     ListingAmenities,
     ListingCategory,
     ListingPost,
@@ -80,6 +80,8 @@ def contact(request):
         latitude = about.latitude
 
     if request.method == "POST":
+        if not request.user.is_authenticated:
+            return redirect("account_login")
         form = ContactForm(request.POST)
         empty_form = ContactForm()
         if form.is_valid():

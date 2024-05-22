@@ -230,3 +230,55 @@ def add_listing(request):
     return render(
         request, "listing/add_listing.html", {"form": form, "hero_image": hero_image}
     )
+
+
+
+
+@login_required
+def edit_listing(request, listing_id):
+    hero_image = SiteImage.objects.filter(place="add_listing").first()
+    listing = (
+        ListingPost.objects.select_related("user")
+        .prefetch_related(
+            Prefetch("category", queryset=ListingCategory.objects.all()),
+            Prefetch("subcategory", queryset=ListingSubCategory.objects.all()),
+            Prefetch("amenities", queryset=ListingAmenities.objects.all()),
+            Prefetch(
+                "reviews", queryset=ListingReview.objects.select_related("user").all()
+            ),
+        )
+        .get(id=listing_id)
+    )
+
+    if request.user != listing.user:
+        return redirect("home")
+
+    elif request.method == "POST":
+        post_data = request.POST.copy()
+        post_data["user"] = request.user
+        form = ListingPostForm(post_data, request.FILES, instance=listing)
+        if form.is_valid():
+            listing = form.save(commit=False)
+            listing.status = PENDING
+            listing.save()
+            form = ListingPostForm()
+            return redirect("profile")
+    else:
+        form = ListingPostForm(instance=listing)
+
+    return render(
+        request,
+        "listing/edit_listing.html",
+        {"form": form, "hero_image": hero_image, "listing": listing},
+    )
+
+
+@login_required
+def delete_listing(request, listing_id):
+    listing = ListingPost.objects.get(id=listing_id)
+    if request.user != listing.user:
+        return redirect("home")
+
+    listing.delete()
+    return redirect("profile")
+
