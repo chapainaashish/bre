@@ -259,7 +259,6 @@ def edit_listing(request, listing_id):
         form = ListingPostForm(post_data, request.FILES, instance=listing)
         if form.is_valid():
             listing = form.save(commit=False)
-            listing.status = PENDING
             listing.save()
             form = ListingPostForm()
             return redirect("profile")

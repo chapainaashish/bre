@@ -1,0 +1,353 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+<title>Listygo | Edit Listing</title>
+{% endblock title %}
+
+{% block main %}
+
+<!-- Inne Page Banner Area Start Here -->
+<section class="inner-page-banner bg-common inner-page-top-margin overlay-dark-40"
+  data-bg-image="{{ hero_image.image.url }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="breadcrumbs-area">
+          <h1>Edit Listing</h1>
+          <ul>
+            <li>
+              <a href="{% url 'home' %}">Home</a>
+            </li>
+            <li>Edit Listing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Inne Page Banner Area End Here -->
+<!-- Add Listing Area Start Here -->
+<section class="padding-top-6 padding-bottom-7 bg--accent">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <form class="listing-form" method="post" id="add_form" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="inner-box">
+            <h3 class="inner-item-heading2">General Information</h3>
+            <div class="row">
+              <div class="col-12">
+                <label>Business Name</label>
+                <div class="form-group">
+                  {{form.business_name}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Category</label>
+                <div class="form-group">
+                 {{form.category}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Subcategory</label>
+                <div class="form-group">
+                 {{form.subcategory}}
+                </div>
+              </div>
+            
+              <div class="col-12">
+                <label>Description</label>
+                <div class="form-group">
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <div class="text-danger">
+                            {{ form.description.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            </div>
+          </div>
+          <div class="inner-box">
+            <h3 class="inner-item-heading2">Add Location</h3>
+            <div class="row">
+              <div class="col-sm-6">
+                <label>Address (Building, Floor, Suite, Number etc)</label>
+                <div class="form-group">
+                  {{form.location}}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label>Street Address (Street Name, Area etc)</label>
+                <div class="form-group">
+                  {{form.street}}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label>City</label>
+                <div class="form-group">
+                  {{form.city}}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label>State</label>
+                <div class="form-group">
+                  {{form.state}}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label>Latitude</label>
+                <div class="form-group">
+                  {{form.latitude}}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label>Longitude</label>
+                <div class="form-group">
+                  {{form.longitude}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="inner-box">
+            <h3 class="inner-item-heading2">Details Information</h3>
+            <div class="row">
+              <div class="col-sm-12">
+                <label>E-mail</label>
+                <div class="form-group">
+                  {{form.email}}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label>Phone</label>
+                <div class="form-group">
+                  {{form.main_phone}}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label>Mobile Phone</label>
+                <div class="form-group">
+                  {{form.mobile_phone}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="inner-box menu-list-wrapper">
+            <h3 class="inner-item-heading2">Gallery Images</h3>
+            <label>Click here or drop files to upload</label>
+            <div class="row menu-list">
+              <div class="col-sm-4 col-12 menu-item">
+                <div class="form-group">
+                  {{form.image1}}
+                  <img src="{{listing.image1.url}}" class="img-upload">
+                </div>
+              </div>
+              <div class="col-sm-4 col-12 menu-item">
+                <div class="form-group">
+                  {{form.image2}}
+                  {% if listing.image2 %}
+                  <img src="{{listing.image2.url}}" class="img-upload">
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-sm-4 col-12 menu-item">
+                <div class="form-group">
+                  {{form.image3}}
+                  {% if listing.image3 %}
+                  <img src="{{listing.image3.url}}" class="img-upload">
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-sm-4 col-12 menu-item hidden">
+                <div class="form-group">
+                  <input class="form-control img-upload-box" id="img-upload4" type="file" />
+                </div>
+              </div>
+              <div class="col-sm-4 col-12 menu-item hidden">
+                <div class="form-group">
+                  <input class="form-control img-upload-box" id="img-upload5" type="file" />
+                </div>
+              </div>
+              <div class="col-sm-4 col-12 menu-item hidden">
+                <div class="form-group">
+                  <input class="form-control img-upload-box" id="img-upload6" type="file" />
+                </div>
+              </div>
+              <div class="col-sm-4 col-12 menu-item hidden">
+                <div class="form-group">
+                  <input class="form-control img-upload-box" id="img-upload7" type="file" />
+                </div>
+              </div>
+              <div class="col-sm-4 col-12 menu-item hidden">
+                <div class="form-group">
+                  <input class="form-control img-upload-box" id="img-upload8" type="file" />
+                </div>
+              </div>
+              <div class="col-sm-4 col-12 menu-item hidden">
+                <div class="form-group">
+                  <input class="form-control img-upload-box" id="img-upload9" type="file" />
+                </div>
+              </div>
+            </div>
+            {% comment %} <div class="loadmore" data-lg="3" data-md="2" data-sm="1">
+              <a class="btn-add-more" href="#"><i class="fas fa-plus"></i>ADD MORE</a>
+            </div> {% endcomment %}
+          </div>
+          <div class="inner-box">
+            <h3 class="inner-item-heading2">Amenities</h3>
+            <div>
+              <label>Amenities (Optional)</label>
+              <div class="form-group">
+               {{ form.amenities }}
+              </div>
+            </div>
+          </div>
+          <div class="inner-box">
+            <h3 class="inner-item-heading2">Amenities</h3>
+            <div>
+              <label>Enter the price</label>
+              <div class="form-group">
+               {{ form.price }}
+              </div>
+              {{form.errors}}
+            </div>
+          </div>
+          <div class="inner-box">
+            <button class="btn-upload" type="submit">UPLOAD NOW</button>
+          </div>
+          {% if success %}
+          <div class="alert alert-success text-center" role="alert" style="margin-top:8px;">
+            {{success}}
+          </div>
+          {% endif %}
+        </form>
+      </div>
+      <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+        {% comment %} <div class="widget widget-box-padding widget-search">
+          <h3 class="widget-title">Search</h3>
+          <div class="input-group stylish-input-group">
+            <input class="form-control" placeholder="What are you looking For?" type="text" />
+            <span class="input-group-addon">
+              <button type="submit">
+                <span aria-hidden="true" class="flaticon-search"></span>
+              </button>
+            </span>
+          </div>
+        </div> {% endcomment %}
+        {% comment %} <div class="widget widget-box-padding widget-categories">
+          <h3 class="widget-title">Categories</h3>
+          <ul class="block-list">
+            <li>
+              <a href="#">
+                <i class="fas fa-angle-right"></i>Destinations</a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fas fa-angle-right"></i>Food &amp; Drink</a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fas fa-angle-right"></i>Lifestyle</a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fas fa-angle-right"></i>Stay</a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fas fa-angle-right"></i>Travel</a>
+            </li>
+          </ul>
+        </div> {% endcomment %}
+        <div class="widget widget-box-padding widget-follow-us">
+          <h3 class="widget-title">Follow Us</h3>
+          <ul class="inline-list">
+            {% if context_about.facebook %}
+            <li class="single-item"><a href="{{ context_about.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            {% endif %}
+            {% if context_about.twitter %}
+                <li class="single-item"><a href="{{ context_about.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+            {% endif %}
+            {% if context_about.linkedin %}
+                <li class="single-item"><a href="{{ context_about.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+            {% endif %}
+            {% if context_about.pinterest %}
+                <li class="single-item"><a href="{{ context_about.pinterest }}" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+            {% endif %}
+            {% if context_about.skype %}
+                <li class="single-item"><a href="{{ context_about.skype }}" target="_blank"><i class="fab fa-skype"></i></a></li>
+            {% endif %}
+            {% if context_about.rss %}
+                <li class="single-item"><a href="{{ context_about.rss }}" target="_blank"><i class="fas fa-rss"></i></a></li>
+            {% endif %}
+            {% if context_about.dribble %}
+                <li class="single-item"><a href="{{ context_about.dribble }}" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+            {% endif %}
+            {% if context_about.instagram %}
+                <li class="single-item"><a href="{{ context_about.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            {% endif %}
+            {% if context_about.google_plus %}
+                <li class="single-item"><a href="{{ context_about.google_plus }}" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
+            {% endif %}
+            {% if context_about.vk %}
+                <li class="single-item"><a href="{{ context_about.vk }}" target="_blank"><i class="fab fa-vk"></i></a></li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="widget widget-box-padding widget-poster">
+          <div class="item-img">
+            <img alt="Poster" class="img-fluid" src="{{ context_ad_image.image.url }}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+      $('#id_category').change(function() {
+        var selectedCategory = $(this).val();
+        if (!selectedCategory || selectedCategory === "default") {  // Update "default" to the value of your default category
+            $.ajax({
+                url: '/listing/get_all_subcategories/',  // Update this URL to the one in your Django project
+                success: function(data) {
+                    var options = '';
+                    for (var i = 0; i < data.length; i++) {
+                        options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                    }
+                    $('#id_subcategory').html(options);
+                }
+            });
+        } else if (selectedCategory) {
+              $.ajax({
+                  url: '/listing/get_subcategories/',  // Update this URL to the one in your Django project
+                  data: {
+                      'category': selectedCategory
+                  },
+                  success: function(data) {
+                      var options = '';
+                      for (var i = 0; i < data.length; i++) {
+                          options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                      }
+                      $('#id_subcategory').html(options);
+                  }
+              });
+          } else {
+              $('#id_subcategory').html('');
+          }
+      });
+  });
+</script>
+
+<head>
+  {{ form.media }}
+</head>
+
+
+{% endblock main %}

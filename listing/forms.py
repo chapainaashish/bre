@@ -133,6 +133,13 @@ class ListingPostForm(forms.ModelForm):
         self.fields["image6"].required = False
         self.fields["amenities"].required = False
         self.fields["status"].required = False
+        
+        if self.instance and self.instance.pk:
+            self.fields["subcategory"].queryset = ListingSubCategory.objects.filter(
+                category=self.instance.category
+            )
+        if self.instance and self.instance.pk and self.instance.image1:
+            self.fields["image1"].required = False 
 
     class Meta:
         model = ListingPost
@@ -158,13 +165,13 @@ class ListingPostForm(forms.ModelForm):
             "main_phone": forms.TextInput(attrs={"class": "form-control"}),
             "mobile_phone": forms.TextInput(attrs={"class": "form-control"}),
             "image1": forms.FileInput(
-                attrs={"class": "form-control img-upload-box", "id": "img-upload1"}
+                attrs={"class": "form-control ", "id": "img-upload1"}
             ),
             "image2": forms.FileInput(
-                attrs={"class": "form-control img-upload-box", "id": "img-upload2"}
+                attrs={"class": "form-control ", "id": "img-upload2"}
             ),
             "image3": forms.FileInput(
-                attrs={"class": "form-control img-upload-box", "id": "img-upload3"}
+                attrs={"class": "form-control ", "id": "img-upload3"}
             ),
             "amenities": forms.SelectMultiple(attrs={"class": "form-control"}),
             "price": forms.TextInput(

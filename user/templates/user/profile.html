@@ -91,6 +91,7 @@
                     <li><i class="far fa-calendar-alt"></i>{{listing.created_at}}</li>
                   </ul>
                   <ul class="meta-item">
+                    <li class="item-btn"><a class="btn-fill" style="background:#79f531; border-style:none; color:white;" >{{listing.get_status_display}}</a></li>
                     <li class="item-btn"><a class="btn-fill" href="{% url 'edit_listing' listing.id %}">Edit</a></li>
                     <li class="item-btn"><a class="btn-fill"  href="{% url 'delete_listing' listing.id %}">Delete</a>
                     </li>

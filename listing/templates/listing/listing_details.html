@@ -176,7 +176,7 @@
                   {% for amenity in listing.amenities.all %}
                   <li>
                     <div class="media">
-                      <a href="#"><img alt="Menu"  src="{{ amenity.image.url }}"/></a>
+                      <a href="#"><img alt="Menu"  src="{{ amenity.image.url }}" style="height: 100px; width:100px"/></a>
                       <div class="media-body space-md">
                         <h4 class="item-title"><a>{{amenity.title}}</a></h4>
                         <p>{{amenity.description}}</p>
@@ -197,7 +197,7 @@
               {% for review in reviews %}
               <li class="post-no-one">
                 <div class="media">
-                  <figure><img alt="Review" src="{{ review.user.profile.image.url }}" /></figure>
+                  <figure><img alt="Review" src="{{ review.user.profile.image.url }}" style="width:110px;"  /></figure>
                   <div class="media-body">
                     <span class="review-title">{{review.title}}</span>
                     <h4 class="reviewer-name">{{review.user.username}}<span class="review-date">{{review.created_at}}</span></h4>
