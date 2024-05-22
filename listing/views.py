@@ -143,7 +143,7 @@ def listing_details(request, listing_id):
             review_message = "You have already reviewed this listing."
 
     reviews = ListingReview.objects.select_related("user").filter(
-        listing__id=listing_id, status=APPROVED
+        listing__id=listing_id
     )
     review_form = ListingReviewForm(request.POST or None)
     contact_form = PropertyContactForm(request.POST or None)
@@ -154,6 +154,7 @@ def listing_details(request, listing_id):
             return redirect("account_login")
 
         if "review_submit" in request.POST:
+
             if review_form.is_valid():
                 print(review_form.cleaned_data)
                 review = review_form.save(commit=False)
@@ -173,7 +174,7 @@ def listing_details(request, listing_id):
                         "review_message": review_message,
                         "contact_form": contact_form,
                         "contact_form_success": contact_form_success,
-                        "review_success": "Thanks for your review. Please wait for admin to approve.",
+                        "review_success": "Thanks for your review.",
                     },
                 )
 

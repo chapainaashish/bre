@@ -32,7 +32,6 @@ class BlogPost(models.Model):
         related_name="category",
         help_text="Choose the blog category",
     )
-    tags = models.CharField(help_text="Enter the blog tags", max_length=500)
 
     def __str__(self) -> str:
         return self.title

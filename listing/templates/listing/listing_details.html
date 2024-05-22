@@ -6,7 +6,6 @@
 {% endblock title %}
 
 {% block main %}
-
 <section class="single-listing-carousel-wrap">
   <div class="slick-carousel slick-navigation-layout2" data-slick='{
             "slidesToShow": 3,
@@ -74,7 +73,6 @@
     {% endif %}
   </div>
 </section>
-<!-- Single Listing Area Start Here -->
 <section class="single-listing-wrap-layout2 padding-bottom-7 bg--accent">
   <div class="single-listing-summary-wrap2">
     <div class="container">
@@ -313,7 +311,6 @@
                     {% endfor %}
                     <li><span>{{ listing.average_rating|default_if_none:0 }}<span> / 5</span></span> </li>
                 </ul>
-                <div class="item-logo"><img alt="Logo" src="{{ listing.subcategory.first.category.logo.url }}" /></div>
               </div>
               <div class="item-content"> 
                 <h3 class="item-title"><a href="{% url 'listing_details' listing.id %}">{{listing.business_name}}</a></h3>
@@ -406,7 +403,6 @@
     </div>
   </div>
 </section>
-<!-- Single Listing Area End Here -->
 <script>
   function validateForm() {
       var response = grecaptcha.getResponse();

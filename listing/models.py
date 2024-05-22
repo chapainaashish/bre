@@ -7,8 +7,6 @@ from PIL import Image
 APPROVED = "A"
 PENDING = "P"
 DENIED = "D"
-PAID = "P"
-FREE = "F"
 
 LISTING_IMAGE_SIZE = (670, 390)
 
@@ -45,11 +43,7 @@ class ListingCategory(models.Model):
         help_text="Upload the category logo(80*80)",
         verbose_name="Category Logo",
     )
-    on_home = models.BooleanField(
-        default=False,
-        help_text="Show this category on hero section of home page",
-        verbose_name="Show on homepage",
-    )
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -115,11 +109,6 @@ class ListingPost(models.Model):
         help_text="Choose whether to display on site or not",
         blank=True,
         null=True,
-    )
-    on_home = models.BooleanField(
-        default=False,
-        help_text="Show this post on hero section of home page",
-        verbose_name="Show on homepage",
     )
 
     description = models.TextField(help_text="Enter the property description")
@@ -255,11 +244,7 @@ class ListingPost(models.Model):
 
     def average_rating(self):
         """Return average rating of a product"""
-        return (
-            self.reviews.filter(status=APPROVED)
-            .aggregate(rating=Avg("rating"))
-            .get("rating")
-        )
+        return self.reviews.filter().aggregate(rating=Avg("rating")).get("rating")
 
     def __str__(self) -> str:
         return str(self.business_name)
@@ -301,12 +286,7 @@ class ListingReview(models.Model):
         related_name="reviews",
         help_text="Select the property",
     )
-    status = models.CharField(
-        max_length=1,
-        choices=STATUS_CHOICES,
-        default=PENDING,
-        help_text="Choose whether to display on site or not",
-    )
+
     title = models.CharField(help_text="Enter the title of your review", max_length=500)
     description = models.TextField(help_text="Enter the description of the review")
     created_at = models.DateField(auto_now_add=True)

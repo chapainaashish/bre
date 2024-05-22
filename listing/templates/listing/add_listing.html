@@ -116,13 +116,7 @@
           <div class="inner-box">
             <h3 class="inner-item-heading2">Details Information</h3>
             <div class="row">
-              <div class="col-sm-6">
-                <label>Name</label>
-                <div class="form-group">
-                  {{form.name}}
-                </div>
-              </div>
-              <div class="col-sm-6">
+              <div class="col-sm-12">
                 <label>E-mail</label>
                 <div class="form-group">
                   {{form.email}}
@@ -209,6 +203,7 @@
               <div class="form-group">
                {{ form.price }}
               </div>
+              {{form.errors}}
             </div>
           </div>
           <div class="inner-box">

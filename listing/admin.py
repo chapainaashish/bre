@@ -22,7 +22,6 @@ class ListingCategoryAdmin(ModelAdmin):
     list_display = ["name", "created_at", "updated_at"]
     list_per_page = 10
     search_fields = ["name"]
-    list_filter = ["on_home"]
 
 
 @admin.register(models.ListingSubCategory)
@@ -55,7 +54,7 @@ class ListingPostAdmin(ModelAdmin):
     list_per_page = 10
     search_fields = ["business_name", "subcategory__name"]
     readonly_fields = ["user"]
-    list_filter = ["status", "on_home"]
+    list_filter = ["status"]
     exclude = ["category"]
 
     @display(
@@ -89,6 +88,11 @@ class ListingPostAdmin(ModelAdmin):
             return db_field.formfield(**kwargs)
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        form.base_fields["subcategory"].choices = self.get_grouped_choices()
+        return form
+
     def save_model(self, request, obj, form, change):
         if not obj.pk:
             if not obj.user_id:
@@ -111,24 +115,10 @@ class ListingReviewAdmin(ModelAdmin):
         "user",
         "rating",
         "created_at",
-        "show_status",
     ]
     list_per_page = 10
     search_fields = ["business_name", "category__name", "subcategory__name"]
     readonly_fields = ["user"]
-    list_filter = ["status"]
-
-    @display(
-        description="Status",
-        ordering="status",
-        label={
-            "Approved": "success",  # green
-            "Pending": "info",  # blue
-            "Denied": "danger",  # red
-        },
-    )
-    def show_status(self, obj):
-        return obj.get_status_display()
 
     def has_add_permission(self, request):
         return False

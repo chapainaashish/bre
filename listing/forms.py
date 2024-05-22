@@ -154,7 +154,6 @@ class ListingPostForm(forms.ModelForm):
             "state": forms.TextInput(attrs={"class": "form-control"}),
             "latitude": forms.TextInput(attrs={"class": "form-control"}),
             "longitude": forms.TextInput(attrs={"class": "form-control"}),
-            "name": forms.TextInput(attrs={"class": "form-control"}),
             "email": forms.EmailInput(attrs={"class": "form-control"}),
             "main_phone": forms.TextInput(attrs={"class": "form-control"}),
             "mobile_phone": forms.TextInput(attrs={"class": "form-control"}),

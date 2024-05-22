@@ -194,13 +194,21 @@ UNFOLD = {
                         ),
                     },
                     {
-                        "title": "Property Amenities",
-                        "icon": "roofing",
+                        "title": "Property Queries",
+                        "icon": "perm_phone_msg",  # Choose an appropriate icon
                         "link": reverse_lazy(
-                            "admin:listing_listingamenities_changelist"
+                            "admin:listing_propertycontact_changelist"
                         ),
                         "permission": lambda request: request.user.has_perm(
-                            "listing.view_listingamenities"
+                            "listing.view_propertycontact"
+                        ),
+                    },
+                    {
+                        "title": "Property Reviews",
+                        "icon": "star_half",  # Choose an appropriate icon
+                        "link": reverse_lazy("admin:listing_listingreview_changelist"),
+                        "permission": lambda request: request.user.has_perm(
+                            "listing.view_listingreview"
                         ),
                     },
                     {
@@ -224,11 +232,13 @@ UNFOLD = {
                         ),
                     },
                     {
-                        "title": "Property Reviews",
-                        "icon": "star_half",  # Choose an appropriate icon
-                        "link": reverse_lazy("admin:listing_listingreview_changelist"),
+                        "title": "Property Amenities",
+                        "icon": "roofing",
+                        "link": reverse_lazy(
+                            "admin:listing_listingamenities_changelist"
+                        ),
                         "permission": lambda request: request.user.has_perm(
-                            "listing.view_listingreview"
+                            "listing.view_listingamenities"
                         ),
                     },
                 ],
@@ -289,14 +299,6 @@ UNFOLD = {
                         "link": reverse_lazy("admin:base_faq_changelist"),
                         "permission": lambda request: request.user.has_perm(
                             "base.view_faq"
-                        ),
-                    },
-                    {
-                        "title": "Pages",
-                        "icon": "pages",
-                        "link": reverse_lazy("admin:base_page_changelist"),
-                        "permission": lambda request: request.user.has_perm(
-                            "base.view_page"
                         ),
                     },
                 ],

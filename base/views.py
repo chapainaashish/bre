@@ -12,7 +12,7 @@ from listing.models import (
 )
 
 from .forms import ContactForm, FAQSearchForm, HeroForm
-from .models import About, Faq, Page, SiteImage
+from .models import About, Faq, SiteImage
 
 
 def home(request):
@@ -22,9 +22,7 @@ def home(request):
         num_listings=Count("category_listing")
     ).order_by("-num_listings")[:15]
 
-    pin_categories = ListingCategory.objects.filter(on_home=True).order_by(
-        "-updated_at"
-    )[:6]
+    pin_categories = ListingCategory.objects.all()
 
     pin_listings = (
         ListingPost.objects.select_related("user")
@@ -36,7 +34,6 @@ def home(request):
                 "reviews", queryset=ListingReview.objects.select_related("user").all()
             ),
         )
-        .filter(on_home=True)
         .order_by("-updated_at")
         .all()[:4]
     )
@@ -54,7 +51,6 @@ def home(request):
                 "reviews", queryset=ListingReview.objects.select_related("user").all()
             ),
         )
-        .filter(status=APPROVED)
         .order_by("-created_at")
         .all()[:6]
     )
@@ -127,11 +123,6 @@ def contact(request):
 
 def about(request):
     return render(request, "base/about.html")
-
-
-def page(request, slug):
-    page = get_object_or_404(Page, slug=slug)
-    return render(request, "base/page.html", {"page": page})
 
 
 def faq(request):

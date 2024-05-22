@@ -53,17 +53,3 @@ class AboutAdmin(ModelAdmin):
             )
             return redirect(reverse("admin:base_about_change", args=(obj.pk,)))
         return super().add_view(request, form_url, extra_context)
-
-
-@admin.register(models.Page)
-class PageAdmin(ModelAdmin):
-    list_display = ["title", "created_at", "updated_at"]
-    list_per_page = 10
-    search_fields = ["title"]
-    exclude = ["slug"]
-
-    formfield_overrides = {
-        django_models.TextField: {
-            "widget": TinyMCE,
-        }
-    }

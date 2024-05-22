@@ -68,29 +68,7 @@
     /*-------------------------------------
     Price range filter
     -------------------------------------*/
-    var priceSlider = document.getElementById('price-range-filter');
-    if (priceSlider) {
-        noUiSlider.create(priceSlider, {
-            start: [2000, 7000],
-            connect: true,
-            range: {
-                'min': 0,
-                'max': 9000
-            },
-            format: wNumb({
-                decimals: 0
-            }),
-        });
-        var marginMin = document.getElementById('price-range-min'),
-            marginMax = document.getElementById('price-range-max');
-        priceSlider.noUiSlider.on('update', function (values, handle) {
-            if (handle) {
-                marginMax.innerHTML = "$" + values[handle];
-            } else {
-                marginMin.innerHTML = "$" + values[handle];
-            }
-        });
-    }
+
 
     /*-------------------------------------
      Select2 activation code
@@ -99,11 +77,11 @@
         $('select.select2').select2({
             theme: 'classic',
             dropdownAutoWidth: true,
-            width: '100%' 
+            width: '100%'
         });
         $('.opening-hours-wrap select.select2').select2({
             theme: 'classic',
-            width: '100%' 
+            width: '100%'
         });
     }
 
@@ -168,24 +146,24 @@
         e.preventDefault();
         var _this = $(this),
             _parent = _this.parents('.menu-list-wrapper'),
-            button_wrapper= _parent.find('.loadmore'),
+            button_wrapper = _parent.find('.loadmore'),
             sm = button_wrapper.data('sm') || null,
             md = button_wrapper.data('md') || null,
             lg = button_wrapper.data('lg') || null,
             _target = _parent.find('.menu-list'),
             _set = _target.find('.menu-item.hidden').slice(0, 2);
 
-            if(sm || md || lg){
-                var wWidth = $(window).width();
-                if(lg && wWidth > 991){
-                    _set = _target.find('.menu-item.hidden').slice(0, lg);
-                }else if(md && wWidth <= 991 && wWidth >= 768){
-                    _set = _target.find('.menu-item.hidden').slice(0, md);
-                }else if(sm && wWidth < 768){
-                    _set = _target.find('.menu-item.hidden').slice(0, sm);
-                } 
+        if (sm || md || lg) {
+            var wWidth = $(window).width();
+            if (lg && wWidth > 991) {
+                _set = _target.find('.menu-item.hidden').slice(0, lg);
+            } else if (md && wWidth <= 991 && wWidth >= 768) {
+                _set = _target.find('.menu-item.hidden').slice(0, md);
+            } else if (sm && wWidth < 768) {
+                _set = _target.find('.menu-item.hidden').slice(0, sm);
             }
-            
+        }
+
         if (_set.length) {
             _set.animate({
                 opacity: 0
@@ -206,38 +184,38 @@
     Tooltips 
     -------------------------------------*/
     $(document).on('mouseover', '.tooltip-item', function () {
-            var self = $(this),
-                tips = self.attr('data-tips');
-            $tooltip = '<div class="listygo-tooltip">' +
-                '<div class="listygo-tooltip-content">' + tips + '</div>' +
-                '<div class="listygo-tooltip-bottom"></div>' +
-                '</div>';
-            $('body').append($tooltip);
-            var $tooltip = $('body > .listygo-tooltip');
-            var tHeight = $tooltip.outerHeight();
-            var tBottomHeight = $tooltip.find('.listygo-tooltip-bottom').outerHeight();
-            var tWidth = $tooltip.outerWidth();
-            var tHolderWidth = self.outerWidth();
-            var top = self.offset().top - (tHeight + tBottomHeight);
-            var left = self.offset().left;
-            $tooltip.css({
-                'top': top + 'px',
-                'left': left + 'px',
-                'opacity': 1
-            }).show();
-            if (tWidth <= tHolderWidth) {
-                var itemLeft = (tHolderWidth - tWidth) / 2;
-                left = left + itemLeft;
-                $tooltip.css('left', left + 'px');
-            } else {
-                var itemLeft = (tWidth - tHolderWidth) / 2;
-                left = left - itemLeft;
-                if (left < 0) {
-                    left = 0;
-                }
-                $tooltip.css('left', left + 'px');
+        var self = $(this),
+            tips = self.attr('data-tips');
+        $tooltip = '<div class="listygo-tooltip">' +
+            '<div class="listygo-tooltip-content">' + tips + '</div>' +
+            '<div class="listygo-tooltip-bottom"></div>' +
+            '</div>';
+        $('body').append($tooltip);
+        var $tooltip = $('body > .listygo-tooltip');
+        var tHeight = $tooltip.outerHeight();
+        var tBottomHeight = $tooltip.find('.listygo-tooltip-bottom').outerHeight();
+        var tWidth = $tooltip.outerWidth();
+        var tHolderWidth = self.outerWidth();
+        var top = self.offset().top - (tHeight + tBottomHeight);
+        var left = self.offset().left;
+        $tooltip.css({
+            'top': top + 'px',
+            'left': left + 'px',
+            'opacity': 1
+        }).show();
+        if (tWidth <= tHolderWidth) {
+            var itemLeft = (tHolderWidth - tWidth) / 2;
+            left = left + itemLeft;
+            $tooltip.css('left', left + 'px');
+        } else {
+            var itemLeft = (tWidth - tHolderWidth) / 2;
+            left = left - itemLeft;
+            if (left < 0) {
+                left = 0;
             }
-        })
+            $tooltip.css('left', left + 'px');
+        }
+    })
         .on('mouseout', '.tooltip-item', function () {
             $('body > .listygo-tooltip').remove();
         });
@@ -265,21 +243,21 @@
         $(window).on('scroll load', function (event) {
             var st = $(this).scrollTop();
             if (st > header_position.top) {
-                ($(".header-table").length) ? $('header .header-table').addClass("header-fixed"): $('header .header-main').addClass("header-fixed");
+                ($(".header-table").length) ? $('header .header-table').addClass("header-fixed") : $('header .header-main').addClass("header-fixed");
             } else {
-                ($(".header-table").length) ? $('header .header-table').removeClass("header-fixed"): $('header .header-main').removeClass("header-fixed");
+                ($(".header-table").length) ? $('header .header-table').removeClass("header-fixed") : $('header .header-main').removeClass("header-fixed");
             }
 
             if (st > lastScroll && st > header_position.top) {
-                ($(".header-table").length) ? $('header .header-table').addClass("hidden-menu"): $('header .header-main').addClass("hidden-menu");
+                ($(".header-table").length) ? $('header .header-table').addClass("hidden-menu") : $('header .header-main').addClass("hidden-menu");
             } else if (st <= lastScroll) {
-                ($(".header-table").length) ? $('header .header-table').removeClass("hidden-menu"): $('header .header-main').removeClass("hidden-menu");
+                ($(".header-table").length) ? $('header .header-table').removeClass("hidden-menu") : $('header .header-main').removeClass("hidden-menu");
             }
 
             lastScroll = st;
 
             if (st === 0) {
-                ($(".header-table").length) ? $('header .header-table').removeClass("header-fixed"): $('header .header-main').removeClass("header-fixed");
+                ($(".header-table").length) ? $('header .header-table').removeClass("header-fixed") : $('header .header-main').removeClass("header-fixed");
             }
         });
     }
@@ -467,26 +445,26 @@
                     $carousel.slick({
                         centerPadding: '0px',
                         responsive: [{
-                                breakpoint: 991,
-                                settings: {
-                                    slidesToShow: slidesToShowTab,
-                                    slidesToScroll: slidesToShowTab
-                                }
-                            },
-                            {
-                                breakpoint: 767,
-                                settings: {
-                                    slidesToShow: slidesToShowMobileL,
-                                    slidesToScroll: slidesToShowMobileL
-                                }
-                            },
-                            {
-                                breakpoint: 479,
-                                settings: {
-                                    slidesToShow: slidesToShowMobileS,
-                                    slidesToScroll: slidesToShowMobileS
-                                }
+                            breakpoint: 991,
+                            settings: {
+                                slidesToShow: slidesToShowTab,
+                                slidesToScroll: slidesToShowTab
                             }
+                        },
+                        {
+                            breakpoint: 767,
+                            settings: {
+                                slidesToShow: slidesToShowMobileL,
+                                slidesToScroll: slidesToShowMobileL
+                            }
+                        },
+                        {
+                            breakpoint: 479,
+                            settings: {
+                                slidesToShow: slidesToShowMobileS,
+                                slidesToScroll: slidesToShowMobileS
+                            }
+                        }
                         ]
                     });
                 });

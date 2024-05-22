@@ -154,23 +154,3 @@ class Contact(models.Model):
 
     def __str__(self) -> str:
         return str("Contact us")
-
-
-class Page(models.Model):
-    title = models.CharField(max_length=500, help_text="Enter the page title")
-    slug = models.SlugField(unique=True, blank=True)
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
-    body = models.TextField(help_text="Enter the page body")
-
-    def __str__(self) -> str:
-        return self.title
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
-
-    class Meta:
-        verbose_name_plural = "Pages"
-        ordering = ["title", "updated_at"]
