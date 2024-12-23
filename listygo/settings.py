@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "admin_auto_filters",
     "django.contrib.sites",
+    "phonenumber_field",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",

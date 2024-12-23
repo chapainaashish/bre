@@ -1,5 +1,7 @@
+from decimal import Decimal
+
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db import models
 from django.db.models import Avg
 from PIL import Image
@@ -15,6 +17,16 @@ STATUS_CHOICES = [
     (PENDING, "Pending"),
     (DENIED, "Denied"),
 ]
+
+phone_regex = RegexValidator(
+    regex=r"^\d{5,10}$",
+    message="Invalid phone number",
+)
+
+
+def validate_price(value):
+    if not isinstance(value, (int, float, Decimal)):
+        raise ValidationError("Price should be numeric")
 
 
 class ListingAmenities(models.Model):
@@ -152,17 +164,8 @@ class ListingPost(models.Model):
 
     email = models.EmailField(help_text="Enter the email")
 
-    main_phone = models.CharField(
-        max_length=20,
-        help_text="Enter the phone number",
-        verbose_name="Phone Number",
-    )
-    mobile_phone = models.CharField(
-        max_length=20,
-        help_text="Enter the mobile phone number",
-        blank=True,
-        null=True,
-    )
+    main_phone = models.CharField(validators=[phone_regex], max_length=17)
+    mobile_phone = models.CharField(validators=[phone_regex], max_length=17, blank=True)
 
     image1 = models.ImageField(
         upload_to="listing/images/", help_text="Upload the listing image(670*390)"
@@ -203,7 +206,12 @@ class ListingPost(models.Model):
         help_text="Select the property amenities",
         blank=True,
     )
-    price = models.CharField(help_text="Enter the property price", max_length=255)
+    price = models.DecimalField(
+        help_text="Enter the property price",
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(Decimal("1")), validate_price],
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

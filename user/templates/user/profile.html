@@ -47,7 +47,7 @@
           <div class="tab-pane active show" id="dashboard">
             <div class="dashboard">
               <div class="media box-padding media-none--xs">
-                <img alt="My About" src="{{request.user.profile.image.url}}"  style="width: 150px;"/>
+                <img alt="My About" src="{{request.user.profile.image.url}}"  style="width: 150px; height: 150px;"/>
                 <div class="media-body">
                   <h2>
                     {{ request.user.first_name|default:request.user.username }}

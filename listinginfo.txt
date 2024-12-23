@@ -1,0 +1,34 @@
+Name: Luxurious Mansion
+Description: luxurious mansion with basketball court, mini golf court, mini bar, swimming pool, threatre, 
+location: Nayagaun 15 
+Street: Shanti Marga 
+City: Pokhara
+
+```
+
+As you approach the mansion, you're greeted by a grand façade, featuring elegant architectural details and beautifully landscaped gardens. The entrance opens into a majestic foyer with soaring ceilings, a magnificent chandelier, and a sweeping staircase.
+Interior Highlights:
+
+1. Spacious Living Areas: The mansion boasts multiple living spaces, each designed with sophistication and comfort in mind. The grand living room, with its plush furnishings and large windows, offers breathtaking views of the surrounding grounds.
+
+2. Gourmet Kitchen: The state-of-the-art kitchen is a chef’s dream, equipped with top-of-the-line appliances, custom cabinetry, and a large island perfect for casual dining or entertaining guests.
+
+3. Dining Room: The formal dining room, with its exquisite décor and ample seating, is perfect for hosting lavish dinners and celebrations.
+
+4. Private Theater: Experience cinematic magic in the private theater, featuring plush recliner seats, high-definition projection, and a cutting-edge sound system for an unparalleled viewing experience.
+
+5. Mini Bar: The sophisticated mini bar, adorned with rich wood finishes and elegant lighting, is the ideal spot for mixing cocktails and socializing with guests.
+
+
+```
+
+Latitude: 28.195582
+Longtitude: 83.992066
+
+
+email: mansion17@gmail.com
+
+Phone: 98234567877
+
+Price: 5 crore 23 lakhs 
+

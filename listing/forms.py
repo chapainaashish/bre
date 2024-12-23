@@ -133,13 +133,13 @@ class ListingPostForm(forms.ModelForm):
         self.fields["image6"].required = False
         self.fields["amenities"].required = False
         self.fields["status"].required = False
-        
+
         if self.instance and self.instance.pk:
             self.fields["subcategory"].queryset = ListingSubCategory.objects.filter(
                 category=self.instance.category
             )
         if self.instance and self.instance.pk and self.instance.image1:
-            self.fields["image1"].required = False 
+            self.fields["image1"].required = False
 
     class Meta:
         model = ListingPost
